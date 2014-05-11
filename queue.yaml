@@ -1,0 +1,10 @@
+queue:
+- name: daily-notifier
+  rate: 20/s
+  bucket_size: 40
+  max_concurrent_requests: 10
+
+- name: weekly-notifier
+  rate: 20/s
+  bucket_size: 40
+  max_concurrent_requests: 10

@@ -1,0 +1,35 @@
+@charset "UTF-8";
+/* CSS Document */
+label {
+	float: left;
+	text-align: right;
+	font-weight: bold;
+	width: 70px;
+}
+
+fieldset {
+	border: 1px dashed #555555;
+	padding: 10px;
+	margin-bottom: 10px;
+}
+
+.l_submit {
+	float: right;
+	margin-top: 2px;
+}
+
+.row input {
+	float: right;
+	width: 170px;
+	margin-left: 4px;
+}
+
+.row {
+	margin-bottom: 5px;
+	clear: both;
+	margin-top: 5px;
+}
+
+.clearFix {
+	display: inline-block;
+}

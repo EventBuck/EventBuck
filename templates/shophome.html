@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+{% block title %}Welcome to your shop {{ user }} {% endblock %}
+{% block head %}
+{{ super() }}
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" name="fragment" content="!" />
+
+<script type="text/javascript" src="file:///The Temple/Online WorldMarket Project/wowstory.com - Working directory - Copy/Javascripts/script.js">
+</script>
+<script type="text/javascript" src="file:///The Temple/Online WorldMarket Project/wowstory.com - Working directory - Copy/Javascripts/script.js"></script>
+<script type="text/javascript" src="file:///The Temple/Online WorldMarket Project/wowstory.com - Working directory - Copy/Javascripts/jquery.watermark-3.1.3/jquery.watermark.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+$("#searchbox").keyup(function() 
+{
+	var searchbox=$(this).val();
+	var dataString='searchword='+searchbox;
+	if(searchbox==''){ 
+	$("#search").hide();
+	}
+	else{
+	$.ajax({type:"POST",url:"search.php",data:dataString,cache:false,success:function(html){
+		$("#search").html(html).show();
+		}
+	});
+	}return false;
+});
+});	
+
+</script>
+<link rel="stylesheet" type="text/css" href="file:///The Temple/Online WorldMarket Project/wowstory.com - Working directory - Copy/styles/pageStyle.css">
+{% endblock %}
+
+
+{% block content %}
+
+<div id="wrapper1">
+<div id="wrapper2">
+
+<!--here are the tags for the header-->
+
+<div id="header"><h1><strong>Story Teller Wall!</strong><span class="frog">Come and share the same story with the world for fun!!!</span></h1></div>
+<!--header ends here-->
+
+<!-- menu bar starts here-->
+<div id="mainNav">
+<ul>
+<li class="logout"><a href="{{ logOutUri }} ">Log Out</a></li>
+
+</ul>
+
+</div>
+
+<!--Main body starts here-->
+<div id="wrapperformain">
+<div id="main">
+
+<h1><center>HERE COME THE OPEN STORY, THE STORY OF EVERYONE BY EVERYBODY.<br />WE BELIEVED IN OPEN SOURCE SOFTWARE, LET NOW PLAY THE OPEN WRITTEN BOOK GAME!!!<center></h1>
+<center><img src="file:///The Temple/Online WorldMarket Project/wowstory.com - Working directory - Copy/images/livre_bullet.jpg" /></center><br />
+<p>
+I could feel it was too early again when I woke, and I knew I was getting
+the schedule of my days and nights slowly reversed. I lay in my bed and
+listened to the quiet voices of Alice and Jasper in the other room. That
+they were loud enough for me to hear at all was strange. I rolled till my
+feet touched the floor and then staggered to the living room.
+The clock on the TV said it was just after two in the morning. Alice and
+Jasper were sitting together on the sofa, Alice sketching again while
+Jasper looked over her shoulder. They didn't look up when I entered, too
+engrossed in Alice's work.
+I crept to Jasper's side to peek.
+"Did she see something more?" I asked him quietly.
+"Yes. Something's brought him back to the room with the VCR, but it's
+light now."
+I watched as Alice drew a square room with dark beams across its low
+ceiling. The walls were paneled in wood, a little too dark, out of date.
+The floor had a dark carpet with a pattern in it. There was a large
+window against the south wall, and an opening through the west wall led
+to the living room. One side of that entrance was stone — a large tan
+stone fireplace that was open to both rooms. The focus of the room from
+this perspective, the TV and VCR, balanced on a too-small wooden stand,
+were in the southwest corner of the room. An aged sectional sofa curved
+around in front of the TV, a round coffee table in front of it.
+"The phone goes there," I whispered, pointing.
+Two pairs of eternal eyes stared at me.
+"That's my mother's house."
+Alice was already off the couch, phone in hand, dialing. I stared at the
+precise rendering of my mother's family room. Uncharacteristically,
+Jasper slid closer to me. He lightly touched his hand to my shoulder, and
+the physical contact seemed to make his calming influence stronger. The
+panic stayed dull, unfocused.
+Alice's lips were trembling with the speed of her words, the low buzzing
+impossible to decipher. I couldn't concentrate.
+"Bella," Alice said. I looked at her numbly.
+</p>
+</div>
+</div>
+
+
+<!--left sidebar-->
+<div id="navigation">
+
+</div>
+
+<!--right sidebar-->
+
+<div id="newsfeed">
+<h2> In The News</h2>
+<h3> Wow Story Scheduled to be launched on 16th June 2012</h3>
+<p> Cofounder Didia and Jake expressed their desire to launch the website on 16th June.<br/>
+They said they don't want to wait to offer their product to the public anymore hoping that this wone will be the good one for the fans</p>
+<h3>Cofounder of wowstory.com Jake spotted dating a beautiful Zambian girl</h3>
+<p> Now it's official. Wowstory.com cofounder Jake akoti mario epayi ya cherie na ye. lol akoki ko resister ba posa ya nzoto te</p>
+<h2>What's hot today?</h2>
+<h3> Today's story at glance: All about a love tale</h3>
+
+ 
+ 
+</div>
+
+
+<!-- THE FOOTER GOES HERE BABY-->
+
+</div>
+</div>
+{% endblock %}
+</body>
+</html>

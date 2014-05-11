@@ -1,0 +1,89 @@
+{% extends "connections.html" %}
+
+{% block title %}
+La communauté
+{% endblock %}
+{% block style %}
+{{ super() }}
+<style>
+#nvite-friends{
+	float:right;
+	margin-bottom:30px;
+}
+</style>
+{% endblock %}
+{% block central_container %}
+
+<ul class="nav nav-tabs">
+
+              <li class="{{sub_active|check_active('people')}}"><a href="/community/people">Personnes</a></li>
+              <li class="{{sub_active|check_active('asso')}}"><a href="/community/asso">Organisations</a></li>
+            
+            </ul>
+<div id="invite-friends"> 
+<button  class="btn btn-primary" onclick="invite();">
+            <span class="btn_txt"><img src="/shop/static/img/fbicon3.png">Inviter vos amis pour plus de fun! </span></button>
+</div>
+<div id="users" class="row-fluid" style="min-height:300px;">
+{% if user or sub_active == 'asso'%}
+{% for person in user_list %}
+     
+        <div class="row-fluid element">
+                <div class="pull-left" style="margin-right:1%;">
+                        <div id="profile-picture" class="thumbnail" style="width:70px; height:70px;"><img src="{{person.profile_picture}}" style="width:100%; height: 100%;" alt="{{person.name}}"/>
+                        </div>
+                 </div>
+                <div class="pull-left user-detail" ><a href="/{{person.id}}">{{person.fullname}} </a>
+                	{% if person.description %}
+                    <p>
+                    {{ person.description }}
+                    </p>
+                    {% endif %}
+                    {% if person.type == "student" %}
+                     <p>
+                     {% if person.gender == 'male' %} Étudiant {% else %} Étudiante {% endif %} {% if person.major %} en {{ person.major|major}} {% endif %} 
+                     </p>
+                    {% else %}
+                     <p>
+                    Association
+                    </p>
+                    {% endif %}
+                    
+                    <p>
+                    <span style="color:#F00">{{ person.events_published }}</span> {% if person.events_published <= 1 %}event publié{% else %}events publiés{% endif %} 
+                    </p>
+                    
+                </div>
+                {% if user %}
+               <div class="subscription-button">
+                {{ subscription_button(person, one=False) }}
+                </div>  
+                {% endif %}
+        </div>
+        {% endfor %}
+        
+        {% else %}
+        <ul class="text-center">
+        {% for person in user_list %}
+        <li><a href="/{{person.id}}">{{person.fullname}}</a></li> <br/>
+        {% endfor %}
+        </ul>
+        {% endif %}
+</div>
+
+{% endblock %}
+
+{% block load_more %}
+<script>
+$(document).ready(function(e) {
+    
+   $(window).scroll(function(){
+        if  ($(window).scrollTop() == $(document).height() - $(window).height()){
+		   if(market.user)
+           market.load_more_users();
+        }
+	
+});
+});
+</script>
+{% endblock %}

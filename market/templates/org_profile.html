@@ -1,0 +1,75 @@
+{% extends "index.html" %}
+{% block title %}
+{{ user.firstname }} - Profile
+{% endblock %}
+
+{% block left_bar %}
+<div class="row-fluid">
+    <div class="span5">
+        <div id="profile-picture"class="thumbnail" style="width:70px; height: 70px;"><img src="{{profile_picture}}" style="width:70px; height: 70px;"/></div>
+               
+        </div>
+        <div class="span7">
+        <span >{{user.firstname}} {{user.name}}</span>
+        	<form>
+             <div class="fileupload fileupload-new" data-provides="fileupload">
+          <span class="act btn-file"><span class="fileupload-new">Changer votre avatar</span><span class="fileupload-exists">Changer votre logo</span><input type="file" name="img" id="upload-field" onChange="fileUpload(this.form,'{{url_for_profile_picture}}','profile-picture'); return false;"/></span>
+              </form> 
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="row-fluid">
+            <div class="span12 well">
+                <ul class="nav nav-list bs-docs-sidenav" id="side_nav">
+                 <li><a href="#"><i class="icon-user"></i>Mon Profil</a></li>
+                  <li class="{{left_sidebar|check_active("attending")}}"><a href="{{url_for_user_events}}" class="my_events"><i class="icon-star-empty"></i> A venir (<span style="color:#F00">{{avenir_number}}</span>)</a></li>
+                  <li class="{{left_sidebar|check_active("my_events")}}"><a href="#" class="my_events"><i class="icon-folder-close"></i> Mes Events</a></li>
+                  <li><a href="#"><i class=" icon-globe"></i>Mes Connections</a></li>
+                  <li><a href="#"><i class="icon-heart"></i> Mes Préférences</a></li>
+                  <li><a href="#"><i class="icon-wrench"></i>Réglages </a></li>
+                </ul>
+            </div>
+        </div>
+    
+{% endblock %}
+
+{% block central_container %}
+<div class="row-fluid">
+    <div class="span9 well">
+    	<div class="row-fluid">
+        	<div class="span12">
+            	  <div id="myCarousel">
+              <img src="/static/img/stock/5.jpg" alt="" style="width:100%; height:200px;">
+        		</div><br>
+                <span style="font-family: 'lucida grande', tahoma, verdana, arial, sans-serif;
+font-size: 30px;
+line-height: 25px;">Nom de l'organisation</span> <i class=" icon-ok-sign"></i><br>
+				<span style="font-family: 'lucida grande', tahoma, verdana, arial, sans-serif;
+font-size: 15px;
+line-height: 18px;">n Connections</span>
+<button class="btn btn-primary btn-small" style="float:right">Connect</button>
+            </div>
+        </div><hr>
+        <div class="row-fluid">
+        	<div class="span12">
+            <h4>A propos</h4>
+            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+            </div>
+        </div><hr>
+        <h3>Events</h3>
+        <div class="row-fluid">
+        	<div class="span4">
+			
+                		
+            </div>
+        </div>
+    </div>
+    <div class="span3 well"></div>
+
+</div>
+{% endblock %}
+
+{% block pub %}
+
+{% endblock %}

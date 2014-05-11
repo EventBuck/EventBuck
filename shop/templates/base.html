@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{% block head %}
+<meta charset="utf-8">
+<title>{% block title%}{% endblock %}</title>
+<meta name="description" content="">
+<meta name="author" content="Aristote Diasonama">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Le styles -->
+<link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="/static/bootstrap/css/bootstrap-responsive.min.css"
+	rel="stylesheet">
+	<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/smoothness/jquery-ui.min.css" />
+<style>
+.ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }
+.ui-timepicker-div dl { text-align: left; }
+.ui-timepicker-div dl dt { height: 25px; margin-bottom: -25px; }
+.ui-timepicker-div dl dd { margin: 0 10px 10px 65px; }
+.ui-timepicker-div td { font-size: 90%; }
+.ui-tpicker-grid-label { background: none; border: none; margin: 0; padding: 0; }
+
+.ui-timepicker-rtl{ direction: rtl; }
+.ui-timepicker-rtl dl { text-align: right; }
+.ui-timepicker-rtl dl dd { margin: 0 65px 10px 10px; }
+body {
+	padding-top: 60px;
+	/* 60px to make the container go all the way to the bottom of the topbar */
+}
+select{
+      width: 100px; 
+}
+</style>
+
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+      <script src="../assets/js/html5shiv.js"></script>
+    <![endif]-->
+
+<!-- Fav and touch icons -->
+<link rel="apple-touch-icon-precomposed" sizes="144x144"
+	href="../assets/ico/apple-touch-icon-144-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114"
+	href="../assets/ico/apple-touch-icon-114-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="72x72"
+	href="../assets/ico/apple-touch-icon-72-precomposed.png">
+<link rel="apple-touch-icon-precomposed"
+	href="../assets/ico/apple-touch-icon-57-precomposed.png">
+<link rel="shortcut icon" href="../assets/ico/favicon.png">
+{% endblock %}
+</head>
+
+<body>
+
+
+	<!-- Begin nav bar -->
+	<div class="navbar navbar-inverse navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container-fluid">
+				<button type="button" class="btn btn-navbar" data-toggle="collapse"
+					data-target=".nav-collapse">
+					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="brand" href="/shop/"><img
+					src="/shop/static/img/logo1.png" width="70" height="70"
+					alt="Ojo-Ticket" /></a>
+				<div class="nav-collapse collapse">
+					<ul class="nav nav-left-txt">
+						{% block navbar %}
+						<li class="{{active|check_active("home")}}"><a
+							href="{{url_for_index}}">Home</a></li>
+						<li class="{{ active|check_active("about")}}"><a
+							href="#about">About</a></li>
+						<li class="{{ active|check_active("contact")}}"><a
+							href="#contact">Contact</a></li>
+					</ul>
+
+                    
+					<ul class="nav pull-right">
+						<li class="dropdown">
+                        <a href="#" role="button"
+							class="dropdown-toggle" data-toggle="dropdown">{{user.name}}
+								<strong class="caret"></strong>
+						</a>
+							<ul class="dropdown-menu" role="menu">
+								<li role="presentation"><a role="menuitem" tabindex="-1"
+									href="#"> Profile </a></li>
+								<li class="divider"></li>
+								<li role="presentation"><a role="menuitem" tabindex="-1"
+									href="{{url_for_logout}}"> Déconnexion </a></li>
+							</ul></li>
+					</ul>
+                    
+
+					{% endblock %}
+					</ul>
+				</div>
+				<!--/.nav-collapse -->
+			</div>
+		</div>
+	</div>
+	<!-- end the nav bar -->
+
+	<div class="container">{% block content %} {% endblock content %}
+	</div>
+	<!-- /container -->
+
+	<!-- Le javascript
+    ================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	{% block script %}
+    <script src="/static/js/jquery.min.js"></script>
+    <script
+		src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    <script src="/static/js/timepicker.js"></script> 
+	<script src ="/static/js/datepicker-fr.js"></script>
+	<script src="/static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/static/js/ojo.js"></script>
+
+	{% endblock %}
+
+</body>
+</html>

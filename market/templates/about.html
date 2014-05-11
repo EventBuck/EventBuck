@@ -1,0 +1,197 @@
+{% if user %}
+{% extends "home.html" %}
+{% else %}
+{% extends "index.html" %}
+{% endif %}
+{% block head %}
+{{ super() }}
+<style type="text/css">
+
+.make-border{
+	border: 1px solid #e5e5e5;
+	-webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
+	-moz-box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
+	box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
+	background-color:white;
+	
+	margin-bottom:10px;
+}
+.header-div{
+	background-color:#8EA2C6;
+	padding:3px 15px 3px 15px;
+}
+.heho{
+	-webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
+	-moz-box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
+	box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
+	background-color: #FFFFCC;
+	border: 1px solid #ccc;
+	border-bottom:hidden;
+	/*border-bottom:2px solid #bbb;*/
+	margin:10px 10px 0px 10px;
+	padding:2px 5px 2px 5px;
+	font-size:16px;
+	
+	
+}
+.heho1{
+	
+	background-color:#6FC;
+	padding:6px 10px 6px 10px;
+	margin-top:0px;
+	border: 4px solid #ccc;
+	border-top:3px solid #bbb;
+	border-bottom:hidden;
+	/*border-bottom:4px solid #bbb;*/
+		
+}
+.heho2{
+	background-color:#96E7FF;
+	padding:8px 10px 8px 10px;
+	margin-top:0px;
+	border: 3px solid #ccc;
+	border-top:6px solid #bbb;;
+	border-bottom:hidden
+	
+}
+.heho3{
+	background-color:#9CF;
+	padding:14px 10px 14px 10px;
+	margin-top:0px;
+	border: 4px solid #ccc;
+	border-top:8px solid #bbb;
+	border-bottom:8px solid #bbb;
+	margin-bottom: 10px;
+}
+.transparent {
+	opacity: 0.9;
+	filter: alpha(opacity = 90);
+}
+.thumbnail{
+	overflow:hidden;
+}
+.content-div{
+	padding:2px 5px 2px 5px;
+	font-size:16px;
+}
+.content-div a {
+	text-decoration:none;
+}
+</style>
+{% endblock %}
+{% block central_container %}
+{% block pub %}
+                
+                
+                
+			    <div id="slider" class="clearfix well"><div id="myCarousel" class="carousel slide">
+		<ol class="carousel-indicators">
+			<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+			<li data-target="#myCarousel" data-slide-to="1"></li>
+			<li data-target="#myCarousel" data-slide-to="2"></li>
+		</ol>
+
+		<div class="carousel-inner">
+			<div class="item active">
+				<img
+					src="../static/img/ulaval7.jpg"
+					alt="Academique">
+				<div class="carousel-caption">
+					<h4>Tous les events sur une seule page!</h4>
+					<p>Plus question de chercher 30 pages Facebook pour savoir quelle association organise quelque chose ce weekend. EventBuck est un projet qui vise à réunir tous les événements pouvant intéresser les étudiants en un seul endroit. Que cela soit un event de type académique, party, sport, tout, tu peux le retrouver en un clin d'oeil!</p>
+				</div>
+			</div>
+			<div class="item">
+				<img src="../static/img/ulaval3.jpg"
+					alt="Social network promotion">
+				<div class="carousel-caption">
+					<h4>Une nouvelle tendance! Tu peux organiser aussi!</h4>
+					<p>Nos professeurs nous répètent souvent que notre réseau de contact est aussi important que notre bagage intellectuel! Ce weekend, tu cherches des étudiants pour jouer au soccer, volley, etc. ou juste un 5 à 7 LAN pour se tester à League of Legends? En tant qu'étudiant à l'UL, EvenBuck te permet de poster des events pour que les autres étudiants intéressés puissent facilement les retrouver. Quoi de mieux pour rencontrer des nouvelles personnes et élargir son réseau de contact?  </p>
+				</div>
+			</div>
+			<div class="item">
+				<img
+					src='../static/img/ulaval5.jpg'
+					alt="Non à la deforestation">
+				<div class="carousel-caption">
+					<h4>Vous êtes super-importants pour nous, ensemble nous sommes plus forts!</h4>
+					<p>EventBuck étant un projet lancé par 3 étudiants comme vous, nous avons constamment besoin de vos remarques, suggestions, encouragements pour continuer à avancer le projet et finir par créer une réelle et forte interaction entre les étudiants de l'UL. Alors, que vous ayez une super idée, des remarques ou juste pour dire "What's up?", nous vous attendons avec impatience <a href="/contact"> ici </a>. </p>
+				</div>
+			</div>
+		</div>
+		<a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+		<a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
+
+	</div></div>
+                {% endblock %}
+<div id="central-content" class="container-fluid well">
+<div class="row-fluid make-border">
+ <div class="header-div">
+ <h4><b>C'est quoi EventBuck?</b></h4>
+ </div>
+ <div class="content-div">
+ <p>
+ EventBuck est un site permettant aux étudiants de créer et se tenir informés sur les différentes activités prenant place sur le campus ou à l'extérieur.
+ </p>
+ <p>
+ Tu sors d'une semaine exceptionnellement dure et tu veux juste avoir du fun, il y a certainement d'autres étudiants comme toi qui le veulent aussi! EventBuck te permet donc de les retrouver!
+ <p>
+Tu veux organiser un party, trouver des gens pour faire une activité sportive , ou juste rencontrer des personnes intéressées à préparer un examen à venir? EventBuck est l'endroit idéal pour toi. Il te suffit de créer l'événement sur le site et les autres étudiants pourront le voir et y particper.
+ </p>
+ <p>
+ Alors si tu es étudiant à l'Université Laval, <a href="{{url_for_signin}}"> rejoins </a> la communauté!<br/>
+ Pour les associations universitaires ou autres organisations, <a href="{{url_for_signin}}"> rejoignez-nous </a> pour une meilleure visibilité de vos événements.  
+ </p>
+ 
+
+ 
+ </div>
+</div>
+<div class ="row-fluid make-border">
+<div class="header-div">
+<h4><b> L'équipe du projet </b> </h4>
+</div>
+<div class="content-div">
+<div class="row-fluid text-center" style="padding:1%;">
+      <p><a href="/6192449487634432">Didia Aristote : Buck's commander</a></p>
+      <p><a href="/5733953138851840">Jake Ibee, Zaki : Buck's mechanic </a></p>
+      <p><a href="/5812155903377408">Christophe Durand : Buck's driver</a></p>
+      
+      <!-- WE DON'T NEED OUR PICTURES TO BE DISPLAYED YET
+      <div class="thumbnail pull-left" style="margin-right:10px;">
+      <img src="static/img/didia.jpg" style="width:180px; height:140px;" alt="">
+      <div class="caption">
+      <p class="text-center"><a href="#" >Didia Aristote (TheFuture)</a></p>
+      <p style="font-size:18px;" class="text-center">CEO </p>
+      </div>
+      
+      </div>
+      
+      <div class="thumbnail pull-left" style="margin-right:10px;">
+      <img src="static/img/jake.jpg" style="width:180px; height:140px;" alt="">
+      <div class="caption">
+      <p class="text-center"><a href="#">Jake Ibee (Zaki)</a></p>
+      <p style="font-size:18px;" class="text-center">CTO</p>
+      </div>
+      
+      </div>
+      
+      <div class="thumbnail pull-left">
+      <img src="static/img/christophe.jpg" style="width:180px; height:140px;" alt="">
+      <div class="caption">
+      <p class="text-center"><a href="#">Christophe Durand (Christo)</a></p>
+      <p style="font-size:18px;" class="text-center">CMO</p>
+      </div>
+      
+      </div>
+      -->
+      </div>
+      
+      
+     </div>
+</div>
+
+</div>
+{% endblock %}
+
+

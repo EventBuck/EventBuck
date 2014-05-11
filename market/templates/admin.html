@@ -1,0 +1,33 @@
+{% if user %}
+{% extends "home.html" %}
+{% else %}
+{% extends "index.html" %}
+{% endif %}
+{% block title %}
+{{ user.firstname }} - Profile
+{% endblock %}
+{% block head %} {{ super () }}
+<style type="text/css">
+@media (max-width: 480px){
+	.central_wrapper{
+		margin-left:-50px;
+		margin-right:-20px;
+		}
+		 .span9 {
+    width: 111.87292817100001%;
+    }
+	.controls .span10{
+		width:60%;
+		}
+	
+	}
+</style>
+{% endblock %}
+{% block central_container %}
+<a href="admin/populate/event">Populate</a>
+<br>
+<a href="#">Lister événements</a>
+<br>
+<a href="#">Supprimer tous les événements</a>
+{{ events.date_event }}
+{% endblock %}

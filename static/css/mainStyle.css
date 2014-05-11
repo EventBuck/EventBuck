@@ -1,0 +1,152 @@
+/*To reset all the tags*/
+html, body, h1, h2, h3, h4, h5, h6, p, ol, ul, li, pre, code, address, variable, form, fieldset, blockquote {
+ padding: 0;
+ margin: 0;
+ font-size: 100%;
+ font-weight: normal;
+}
+/*Reset ends here*/
+
+body{
+	min-width:980px;
+	background-color:rgb(4,126,191);
+}
+/*This the style definition for the header*/
+
+#header{
+	
+ font-size:40px;
+ font-family:Arial, Helvetica, sans-serif;
+ letter-spacing: 1px;;
+ background:url(/images/bg_banner.jpg)  no-repeat;
+ padding-bottom:5px;
+ text-align:center;
+
+}
+p.hiden{ display:none;}
+
+#header h1 strong{
+	
+font-size: 100px;
+color: white;
+line-height: 1em;
+margin-right: -6.5em;
+}
+
+#header h1 .frog{
+
+font-size:24px;
+font-weight: bold;
+color: #002D4B;
+}
+
+/*Style for the main body*/
+
+#main{
+	float:left;
+	margin-left:150px;
+	padding-top:150px;
+	width:494px;
+	background:url(../images/bg_main.jpg) top no-repeat #FFF;
+	padding-left:10px;
+	padding-right:10px;
+}
+
+
+/*Here are style definitions for the sidebars*/
+
+#navigation{
+float:left;
+width:150px;
+margin-top:0px;
+margin-bottom:0px;
+margin-left:-664px;
+font-weight:bold;
+font-size:20px;
+font-family:"Palatino Linotype", "Book Antiqua", Palatino, serif;
+color:#FFFFFF;
+padding-left:2px;
+padding-right:2px;
+/*background-color:#CCCCCC;*/
+}
+#navigation li{
+	font-size:20px;
+	text-decoration: none;
+	display: block;
+	padding: 5px;
+	border-bottom: 1px dashed #294E56;
+	color: #73AFB7;
+	line-height: 110%;
+	background: #FFFFFF url(images/bg_link.png) no-repeat right top;
+}
+li a{ display:block;}
+#navigation li:hover{
+		color: #000000;
+	background-image: url(/images/bg_link_h.png);
+}
+.navig{list-style:none}
+.rzone{ list-style:circle; list-style-position:inside; font-size:12px;}
+#form{
+	/*border-bottom:solid 1px  #FFFFFF;
+	border-right:solid 1px #FFFFFF;*/
+	float:right;
+	width:314px;
+}
+#loginForm{
+	height:68px;
+	background-color:#39C;
+}
+#loginForm table{
+	border-collapse:collapse;
+	width:315px;
+	
+}
+
+#signUpForm{
+	padding-top:74px;
+	
+}
+td.space{width:100px;
+text-align:right;}
+td.space2{width:240px;}
+table.log{height:68px;}
+
+
+
+/*Style for the Wrapper*/
+
+#wrapper1{
+	width:980px;
+	margin-left:auto;
+	margin-right:auto;
+	background: url(/images/rightSidebar.png) right top repeat-y;
+	overflow:hidden;
+}
+#wrapper2{
+	width:980px;
+	margin-left:auto;
+	margin-right:auto;
+	background: url(/images/bg_column.gif) left top repeat-y;
+	overflow:hidden;
+}
+#navigation p{
+	padding-top:10px;
+	padding-bottom:10px;
+	padding-left:2px;
+	padding-right:2px;
+	text-align:center;
+	
+}
+#footer{
+clear: both;
+border-top: 1px dashed #999999;
+font-weight: bold;
+color: #666666;
+text-align:center;
+background-color:#FFFFFF;
+width:inherit;
+
+}
+input.invalid{ background-color:#FF9;
+	border:2px red inset;}
+

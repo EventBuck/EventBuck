@@ -1,0 +1,55 @@
+{% if user %}
+{% extends "home.html" %}
+{% else %}
+{% extends "index.html" %}
+{% endif %}
+{% block title %}
+{{ user.firstname }} - Profile
+{% endblock %}
+
+{% block central_container %}
+<div class="row-fluid">
+    <div class="span9 well">
+        <div class="row-fluid">
+            <div class="span4">
+                <div id="profile-picture"class="thumbnail" style="width:190px; height: 200px;"><img src="{{profile_picture}}" style="width:190px; height: 200px;"/></div>
+            </div>
+            <div class="span8">
+            <h2> {{user.firstname}} {{user.name}}</h2><small>Petite description personelle ou devise</small><br>
+            <h4><small>Etudes: </small>FSG Universite Laval</h4>
+            <h4><small>Vie a : </small>Quebec city, Quebec</h4>
+            <h5><a href="#">n  connections</a></h5>
+            <button class="btn btn-primary" type="button">Modifier</button>
+            </div>	
+    		</div><hr>
+           <div class="row-fluid">
+                <div class="span12 ">
+                <center><h3>Events to attend</h3></center>
+                
+                </div>
+        </div>
+        <hr>
+            <div class="row-fluid">
+                    <div class="span12 ">
+                    <center><h3>Events attended</h3></center>
+                    
+                    </div>
+            </div>
+         <hr>
+         	<div class="row-fluid">
+                <div class="span12 ">
+                <center><h3>Timeline Activities</h3></center>
+                <ul>
+                    Date: <li>You did this</li>
+                </ul>
+                </div>
+        	</div>
+    	</div>
+    <div class="span3 well"></div>
+
+</div>
+{% endblock %}
+
+{% block pub %}
+
+{% endblock %}

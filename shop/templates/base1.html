@@ -1,0 +1,98 @@
+<!doctype html><head>
+{% block head %}
+
+
+<meta charset="utf-8">
+<title>{% block title%}{% endblock %}</title>
+<meta name="description" content="">
+<meta name="author" content="Aristote Diasonama">
+
+<link rel="icon" href="/static/img/favicon.gif" type="image/x-icon" />
+<!-- Le styles -->
+{% block style %}
+<link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<style>
+body {
+	padding-top: 60px;
+	/* 60px to make the container go all the way to the bottom of the topbar */
+}
+</style>
+
+
+<link rel="shortcut icon" href="/shop/static/img/favicon.gif"
+	type="image/x-icon" />
+<link rel="stylesheet" type="text/css"
+	href="/shop/static/css/styles.css" />
+{% endblock %}
+<!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+     <![endif]-->
+<!-- Fav and touch icons -->
+<link rel="apple-touch-icon-precomposed" sizes="144x144"
+	href="/static/img/apple-touch-icon-144-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114"
+	href="/static/img/apple-touch-icon-114-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="72x72"
+	href="/static/img/apple-touch-icon-72-precomposed.png">
+<link rel="apple-touch-icon-precomposed"
+	href="/static/img/apple-touch-icon-57-precomposed.png">
+<link rel="shortcut icon" href="/static/img/favicon.png">
+{% endblock %}
+</head>
+<body>
+
+	<!--start container-->
+	<div id="container">
+
+		<!--start header-->
+		<div style="margin-bottom: 25px">
+			<header>
+
+				<!--start logo-->
+				<a href="#" id="logo"><img src="/shop/static/img/logo1.png"/></a>
+				<!--end logo-->
+
+				<!--start menu-->
+
+				<nav>
+					<ul>
+						<li><a href="{{url_for_index}}"
+							class="{{active|check_active("home")}}">Home</a></li>
+						<li><a href="{{url_for_about}}"
+							class="{{active|check_active("apropos")}}">A Propos</a></li>
+						<li><a href="#" class="{{active|check_active("nouvelles")}}" >Nouvelles</a></li>
+						<li><a href="{{url_for_signin}}"
+							class="{{active|check_active("connexion")}}">Connexion</a></li>
+					</ul>
+				</nav>
+				<!--end menu-->
+
+				<!--end header-->
+			</header>
+		</div>
+
+		{% block content %} {% endblock %}
+
+		<!-- This div is to push the footer down -->
+		<div class="container"
+			style="height: 60px; background-color: transparent"></div>
+
+	</div>
+	<!--end container-->
+
+	<!--start footer-->
+	<footer>
+		<div class="container">
+			<div id="FooterTwo">© 2013 Ojo Ticket</div>
+			<div id="FooterTree">Designed by Aristote Diasonoma</div>
+		</div>
+	</footer>
+	<!--end footer-->
+
+	{% block script %}
+	<script
+		src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="/static/bootstrap/js/bootstrap.min.js"></script>
+	{% endblock %}
+</body>
+</html>

@@ -1,0 +1,15 @@
+
+cron:
+- description: update market for upcoming events
+  url: /admin/market/tasks/update
+  schedule: every 6 hours
+
+- description: send daily notification to users
+  url: /crons/notification/daily
+  schedule: every day 07:00
+  timezone: Canada/Eastern
+
+- description: send weekly notification to users
+  url: /crons/notification/weekly
+  schedule: every monday 07:00
+  timezone: Canada/Eastern

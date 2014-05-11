@@ -1,0 +1,447 @@
+{% macro terms_link() -%}
+<a data-toggle="modal" href="#" data-target="#terms-modal">conditions d'utilisation</a>
+{%- endmacro %}
+
+{% macro terms_and_conditions() -%}
+<h1> Termes et Conditions d'utilisation </h1>
+En utilisant ce site vous reconnaissez avoir lu et accepté les termes et conditions suivants:
+<ol>
+<li><h3>Notre responsabilité</h3>
+<p>
+Nous nous engageons à protéger votre vie privée. Les employés autorisés au sein de l' entreprise sur un besoin de savoir que l'utilisation des renseignements recueillis auprès de clients individuels. Nous revoyons constamment nos systèmes et des données afin d'assurer le meilleur service possible à nos clients. Le Parlement a créé des infractions spécifiques pour des actions non autorisées contre les systèmes informatiques et des données. Nous allons enquêter sur toutes ces actions en vue de poursuivre et / ou engager des procédures civiles en dommages-intérêts contre les personnes responsables
+</p>
+</li>
+<li><h3> Nos limites </h3>
+<p>
+Les informations contenues dans ce site Web est fourni « tel quel» . Dans toute la mesure permise par la loi , EventBuck:
+<ul>
+<li> décline toute responsabilité sur les conséquences de votre décision de participer à un événement quelconque sur ce site. Prenez le soin d'analyser un événement complètement avant de décider d'y participer. En cas d'événement pas clair, vous avez la responsabilité de le signaler à EventBuck pour que ce dernier prennent des mesures nécessaires,
+<li> décline toutes les représentations et garanties relatives à ce site et son contenu ou qui est ou peut être fourni par des sociétés affiliées ou toute autre tierce partie, y compris en ce qui concerne les erreurs ou omissions dans ce site Web et / ou de la littérature pour la Société , et</li>
+<li> décline toute responsabilité pour les dommages découlant de ou en relation avec votre utilisation de ce site . Ceci inclut, sans limitation , la perte directe , la perte commerciale ou de bénéfices ( si la perte de ces bénéfices était ou non prévisible , a été soulevée dans le cours normal des choses ou vous ont conseillé cette entreprise de la possibilité d'une telle perte potentielle ) , les dommages causés à votre ordinateur , des logiciels , des systèmes et des programmes et le sujet de données ou tout autre dommage direct ou indirect , directs ou indirects .</li>
+</ul>
+</p>
+</li>
+<li><h3>Vos Obligations</h3>
+<p>Pour être un utilisateur inscrit à nos Services, vous acceptez de : (a) fournir des informations véridiques, exactes, actuelles et complètes à votre sujet comme demandé sur le formulaire d'inscription au Site (les "Informations d'inscription") et (b) de conserver et mettre à jour rapidement les Informations d'inscription pour les maintenir véridiques, exactes, actuelles et complètes. Si vous fournissez des informations qui sont fausses, inexactes, périmées ou incomplètes, ou si EVENTBUCK a des motifs raisonnables de croire que ces informations sont fausses, inexactes, périmées ou incomplètes, EVENTBUCK a le droit de suspendre ou de résilier tous vos comptes et de vous refuser l'utilisation, de quelque manière que ce soit, actuelle ou ultérieure des services, en tout ou en partie. <strong>EVENTBUCK se préoccupe de la sécurité et du respect de la vie privée de ses utilisateurs. Pour cette raison, Nous avons en premier temps limité l'utilisation de ce site aux étudiants de l'université Laval, vous devez donc possédez une addresse email de l'université Laval pour vous créer un compte en tant qu'étudiant.</strong></p>
+</li>
+<li><h3>Votre Compte, mot de passe et votre sécurité</h3>
+<p>
+Dans le cadre du processus d'inscription sur le Site, vous devrez créer un mot de passe et un compte. Vous êtes responsable du maintien de la confidentialité du mot de passe et du compte, et êtes pleinement responsable de toutes les activités qui se produisent sur votre compte, y compris, sans s'y limiter, toutes les actions des sous-utilisateurs inscrits sur votre compte(dans le cas d'un compte d'une organisation). Vous acceptez (a) d'aviser immédiatement EVENTBUCK de toute utilisation non autorisée de votre mot de passe ou de votre compte et de toute autre faille de sécurité, et (b) de vous assurer que vous fermez votre compte à la fin de chaque session. EVENTBUCK décline toute responsabilité pour toute perte, dommage et autres fautes découlant de votre non-respect des dispositions du présent article ou de l'utilisation non autorisée de votre compte. En cas de différend entre deux ou plusieurs parties concernant la propriété d'un compte, vous acceptez qu'EVENTBUCK soit l'unique arbitre assigné audit litige selon son entière discrétion et que la décision d'EVENTBUCK, laquelle peut entraîner la résiliation ou la suspension des comptes faisant l'objet d'un litige, est finale et contraignante pour toutes les parties impliquées.
+</p>
+</li>
+<li><h3>Votre responsabilité</h3>
+<p>Vous comprenez que vous êtes responsable de tout Contenu, quelle qu'en soit la forme, que vous fournissez ou mettez à disposition de quelque manière que ce soit sur ou à partir des Services, à destination des autres utilisateurs des Services. Vous acceptez de ne pas utiliser les Services pour:
+<ul>
+<li>télécharger, publier, envoyer par e-mail ou mettre à disposition de quelque manière que ce soit un Contenu qui est illégal, nuisible, menaçant, abusif, vexatoire, insinuant, diffamatoire, vulgaire, obscène, calomnieux, constituant une violation de la vie privée d'un tiers, haineux, ou répréhensible sur le plan racial, ethnique ou autre ;</li>
+<li>perturber ou déranger les Services ou les serveurs ou réseaux connectés aux Services, ou désobéir aux exigences, procédures, règles ou réglementations relatives aux réseaux connectés aux Services ;</li>
+<li>traquer ou harceler de quelque manière que ce soit une personne ou une entité.</li>
+</ul>
+
+Vous êtes responsables de votre décision de participer ou non à un événement. EventBuck décline toutes responsabilités en cas d'annulation d'événement ou un quelconque inconvenient causé par un événement
+</p>
+</li>
+</ol>
+{%- endmacro %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+{% block head %}
+<meta charset="utf-8">
+<title>{% block title%}{% endblock %}</title>
+
+<meta name="description" property="og:description" content="{% block description %}EventBuck est un site permettant aux étudiants de créer et se tenir informés sur les différentes activités prenant place sur le campus ou à l'extérieur. {% endblock %}">
+<meta name="author" content="{% block author %}Aristote Diasonama{% endblock %}">
+{% block facebook_metadata %}
+{% endblock %}
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="fb:admins" content="100002448856234" />
+<!-- Le styles -->
+<link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+	<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/smoothness/jquery-ui.min.css" />
+   <link rel="icon" type="image/png" href="{% block page_icon %}/shop/static/img/petit2.png{% endblock %}"/>
+<style>
+@media (min-width: 768px)
+{
+body {
+        
+        /* 60px to make the container go all the way to the bottom of the topbar */
+		padding-top:50px;
+		
+        background-image: url('/static/img/bleu_bg.jpg');
+        
+        background-size: 100% 100%;
+        /*background-size: 1280px 800px;*/
+        background-repeat:no-repeat;
+        background-attachment:fixed;
+        display: compact;
+	
+} /* end body */
+.jPanelMenu-panel{
+	height:100%;}
+
+.navbar{
+        background-color:#CCC;
+        opacity:0.9;
+    filter:alpha(opacity=90); 
+        
+        font-weight:bold;
+    color:#000000;
+
+}
+#jPanelMenu-menu{
+        display:none;
+        background:#003;
+        opacity:0.9;
+        width:55%;
+        }
+
+}
+</style>
+<link href="/static/bootstrap/css/bootstrap-responsive.min.css"
+	rel="stylesheet">
+<style>
+
+@media (max-width: 770px){
+          html {
+        font-size: 8px;
+    }
+        
+   body{
+           background-color:#003;
+		   padding-left:0;
+		   padding-right:0;
+   }
+   .drop_menu{
+           background-color:grey;}
+#nav-bar-mobile{
+        background-color:white;
+        position:fixed;
+        height:45px;
+       /* padding-left:2%;*/
+        border-bottom:black solid 1px;
+		width:100%;
+		z-index:1;
+        }
+#logo_mobile{
+	width:78%;
+	float:left;
+	height:40px;}
+#sign-in-icon{
+	width:10%;
+	float:right;
+	height:40px;
+	/*margin-right:5px;*/}
+#home-icon{
+	float:left;
+	width:12%;
+	height:40px;
+	
+}
+#jPanelMenu-menu{
+        display:none;
+        background:#003;
+        opacity:0.9;
+        width:55%;
+        }
+#jPanelMenu-menu ul{
+        margin-left:-10px;}     
+#jPanelMenu-menu li a{
+        color:grey;
+        text-decoration:none;
+		margin-bottom:15px;
+        }
+#jPanelMenu-menu li.header{
+	display:block; background-color:black;
+	color:white;
+	margin-bottom:10px;
+	}
+#jPanelMenu-menu .active a{
+        background-color:#003;
+        color:white;
+        }
+.container-fluid{
+	padding-left:0;
+	padding-right:0;
+}
+}
+#menu_block{
+        display:none;}
+select
+{
+      width: 100px; 
+}
+
+#hid{
+        display: none;
+}
+.transparent {
+        opacity: 0.9;
+        filter: alpha(opacity = 90);
+}
+a:hover{
+	text-decoration:none;}
+
+
+
+
+</style>
+
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+      <script src="../assets/js/html5shiv.js"></script>
+    <![endif]-->
+
+<!-- Fav and touch icons -->
+<link rel="apple-touch-icon-precomposed" sizes="144x144"
+	href="../static/img/apple-touch-icon-144-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114"
+	href="../static/img/apple-touch-icon-114-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="72x72"
+	href="../static/img/apple-touch-icon-72-precomposed.png">
+<link rel="apple-touch-icon-precomposed"
+	href="../static/img/apple-touch-icon-57-precomposed.png">
+<link rel="shortcut icon" href="../static/img/favicon.png">
+{% endblock %}
+</head>
+
+<body>
+{% block facebook_script %}
+<div id="fb-root"></div>
+<script>
+ window.fbAsyncInit = function() {
+    // init the FB JS SDK
+    FB.init({
+      appId      : '129359370579954',                        // App ID from the app dashboard
+      status     : true,                                 // Check Facebook Login status
+	  channelUrl : '//www.eventbuck.com/channel/',
+      xfbml      : true,
+	  cookie     : true,                                 // Look for social plugins on the page
+    });
+ };
+
+
+(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/fr_CA/all.js";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+
+</script>
+{% endblock %}
+
+     {% block entire %}
+     {% block nav %}
+
+	<!-- Begin nav bar -->
+    	<!--Nav mobile-->
+        <div  id="nav-bar-mobile" class="visible-phone">
+        	
+            <div id="home-icon">
+            {% block img_menu%}
+            <a id="img"><img class="hidden-desktop"  src="/shop/static/img/menu.png"/></a>
+            {% endblock %}
+            </div>
+            
+            <div class="text-center" id="logo_mobile">
+            <img  src="/shop/static/img/newlogo.png"/>
+            </div>
+            <div id="sign-in-icon">
+            {% block img%}<a href="{{url_for_signin}}">
+            <img class="pull-right" src="/shop/static/img/login.jpeg"></a>
+            {% endblock %}
+            </div>
+            {% block menu_block%}
+            {% endblock %}
+        </div>
+        
+        <!--End Nav mobile-->
+	<div class="navbar navbar-fixed-top hidden-phone">
+		<div class="navbar-inner">
+			<div class="container-fluid">
+				<button type="button" class="btn btn-navbar" data-toggle="collapse"
+					data-target=".nav-collapse">
+					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+                    <a href="{{url_for_home}}" id="logo" class="brand hidden-phone"><img src="/shop/static/img/logo.png"
+					width="183" height="118" alt="Ojo-Ticket" style="margin-top:-70px; margin-bottom:-100px;"/></a>
+                   
+				<div class="nav-collapse collapse">
+					<ul class="nav nav-left-txt">
+						{% block navbar %}
+                        {% block left_navbar %}
+						<li class="{{active|check_active("home")}}"><a
+							href="{{url_for_home}}">Accueil</a></li>
+                        <li class="{{ active|check_active("community")}}"><a
+							href="/community">Communauté</a></li>  
+                        <li class="{{active|check_active("createEvent")}}"><a href="{{url_for_create_event}}">Créer un nouvel event</a></li>
+                        {% if not user %}
+						<li class="{{ active|check_active("about")}}"><a
+							href="{{url_for_about}}">A propos</a></li>
+						<li class="{{ active|check_active("contact")}}"><a
+							href="{{url_for_contact}}">Contact</a></li>
+                         
+                        
+                       {% endif %}
+                          </ul>
+                         {% endblock %}
+						</ul>
+       					{% if not user %}
+                        <ul class="nav pull-right hidden-phone" id="logout">
+                       <li class="{{ active|check_active("login")}}"><a href="{{url_for_signin}}">Connexion </a></li>
+                       </ul> 
+                       {% endif %}
+                       
+					 {% endblock %}
+                    </ul>
+				
+				</div>
+                
+				<!--/.nav-collapse -->
+			</div>
+		</div>
+	</div>
+	<!-- end the nav bar -->
+    
+    {% endblock %}
+
+    {% block body %}
+	<div class="container-fluid">
+    {% block content %}
+    <div class="row-fluid">
+      <div id="presentation">
+      <h2>Anti-stress + Anti-ennui = Vie Universitaire Enrichissante! </h2>
+      <h3> Etudiant à L'université Laval? </h3>
+      <p> Notre but est d'unir la communauté universitaire autour des activités para-académiques!
+      Ici, Restez au courant de toutes les activités organisées par vos associations étudiantes
+      <ul>
+      <li> Partys </li>
+      <li> Sport </li>
+      <li> Sortie </li>
+      <li> Festival </li>
+      <li> Gaming </li>
+      <li> etc... </li>  
+      </ul>
+      </p>
+      </div>  
+      </div> <!-- end presentation row -->
+      
+    
+    {% endblock content %}
+	</div>
+    {% endblock body %}
+    
+    {% block terms_modal %}
+<div id="terms-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="terms-modalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Conditions d'utilisation</h3>
+  </div>
+  <div class="modal-body">
+  {{ terms_and_conditions() }}
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">OK</button>
+  </div>
+</div>
+{% endblock %}
+    {% endblock %}
+	<!-- /container -->
+
+	<!-- Le javascript
+    ================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	{% block script %}
+   
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+   <script src="/static/js/vendor/timepicker.js"></script> 
+        <script src ="/static/js/vendor/datepicker-fr.js"></script>
+        <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/static/js/vendor/bootbox.min.js"></script>
+    <script src="/static/js/ojo.js" charset="UTF-8"></script>
+    <script src="/market/static/js/market.js" charset="UTF-8"></script>
+    <script src="/static/js/vendor/jpanel.js"></script>
+    <!-- AddThis Smart Layers BEGIN -->
+<!-- Go to http://www.addthis.com/get/smart-layers to customize -->
+{% block addthis %}
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-524d4f1543c4d5d9"></script>
+<script type="text/javascript">
+  addthis.layers({
+    'theme' : 'transparent',
+    'follow' : {
+      'services' : [
+        {'service': 'facebook', 'id': 'eventbuck'},
+        {'service': 'twitter', 'id': 'eventbuck'},
+        {'service': 'google_follow', 'id': '100451231150110520205'}
+      ],
+	  'desktop' : false
+    }
+  });
+  
+</script>
+{% endblock %}
+<!-- AddThis Smart Layers END -->
+    
+    
+<script type="text/javascript">
+	$(document).ready(function(){
+ $(window).scroll(function(){
+  // get the height of #wrap
+  var y = $(window).scrollTop();
+  if( y > 500 ){
+   // if we are show keyboardTips
+   $("#back-to-top").fadeIn("slow");
+  } else {
+   $('#back-to-top').fadeOut('slow');
+  }
+ });
+})
+</script>
+<script>
+var jPM = $.jPanelMenu({
+    menu: '#menu_block',
+
+    trigger: '#img',
+
+    trigger: '#img'
+	
+
+});
+$(document).ready(function(e) {
+    w=window.outerWidth;
+	if (w<=768){
+		jPM.on();
+		}
+	else{
+		jPM.off();
+		}
+});
+</script>
+<script type="text/javascript">
+// Scroll to top animation
+	$("#back-to-top").click(function() {
+  $("html, body").animate({ scrollTop: 0 }, "slow");
+  return false;
+});
+</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-44582231-1', 'eventbuck.com');
+  ga('send', 'pageview');
+
+</script>
+
+	{% endblock %}
+
+
+
+</body>
+</html>

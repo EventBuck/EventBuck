@@ -1,0 +1,182 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+
+'''
+Created on 5 juil. 2013
+
+@author: Aristote Diasonama
+'''
+
+import webapp2
+import jinja2
+import logging
+from google.appengine.ext import ndb
+import memcache
+from django.utils import simplejson
+import helper_functions as helpers
+from shop.handlers.base_handler import BaseHandler
+from market.models.mall import Mall
+from google.appengine.api import users
+
+from market.lib.event import EventManager
+
+jinja_environment = jinja2.Environment(extensions=['jinja2.ext.autoescape'],
+    loader=jinja2.PackageLoader('market', 'templates'))
+jinja_environment.filters['check_active'] = helpers.check_active
+jinja_environment.filters['datetime'] = helpers.format_from_timestamp
+jinja_environment.filters['datetime_to_jquery'] = helpers.inverse_jquery_datepicker_parser
+jinja_environment.filters['major'] = helpers.get_full_major_name
+jinja_environment.filters['category'] = helpers.get_category
+jinja_environment.filters['break_to_newline'] = helpers.break_to_newline
+
+
+
+def student_required(handler):
+    """
+    Decorator that checks if there's a user associated with the current session.
+    Will also fail if there's no session present.
+    """
+    def check_login(self, *args, **kwargs):
+        auth = self.auth
+        user = auth.get_user_by_session()
+        if not user:
+            self.redirect(self.uri_for('marketAuthenticate', callback=self.request.url))
+            
+        else:
+            if self.user.type == 'student':
+                return handler(self, *args, **kwargs)
+            else:
+                return self.redirect(self.uri_for('shopMain'))
+
+    return check_login
+
+
+class BaseHandler(BaseHandler):
+    """
+    This the implementation of the base handler for the market
+    """
+    @webapp2.cached_property
+    def gparams(self):
+        """
+        This is a property containing general parameters we need
+        """
+        admin = users.is_current_user_admin()
+        gparams = {'url_for_partys':webapp2.uri_for('market', page='party'),
+                'url_for_sports':webapp2.uri_for('market', page='sport'),
+                'url_for_others':webapp2.uri_for('market', page='other'),
+                'url_for_academic':webapp2.uri_for('market', page='academic'),
+                'url_for_home':webapp2.uri_for('marketMain'),
+                'url_for_about':webapp2.uri_for('market', page='about'),
+                'url_for_contact':webapp2.uri_for('market', page='contact'),
+                'url_for_signin':webapp2.uri_for('marketLogin'),
+                'url_for_authenticate':webapp2.uri_for('marketAuthenticate', callback=self.request.url),
+                'url_for_signup':webapp2.uri_for('marketSignUp'),
+                'profile_picture': self.get_profile_picture_url(),
+                'url_for_profile_picture':webapp2.uri_for('profilePicture'),
+                'url_for_attend' : webapp2.uri_for('attendEvent'),
+                'url_for_attending_events' : webapp2.uri_for('marketUserAttending'),
+                'url_for_user_events' : webapp2.uri_for('marketUserEvents'),
+                'url_for_create_event':webapp2.uri_for('marketCreateEvent'),
+                'url_for_rpc_create_event':webapp2.uri_for('rpcCreateEvent'),
+                'url_for_shop_signup' : webapp2.uri_for('shopSignUp'),
+                'url_for_logout':webapp2.uri_for('marketLogout'),
+                'url_for_shop':'/shop',
+                'current_url':self.request.url,
+				'static':'/newTemplate',
+                'admin':admin,
+                
+                'active':'home'}
+        if self.user:
+            if self.user.type == 'student':
+                gparams.update({'avenir_number':len(EventManager.get_events_attending(user_id=self.user_info['user_id'])),
+                                
+                                'events_to_review':len(EventManager.get_events_reviewing(self.user_info['user_id']))
+                                })
+            gparams.update({
+                            'event_from_following': len(EventManager.get_events_from_subscription(self.user_info['user_id'])),
+                        })
+        return gparams
+    
+    def get_profile_picture_url(self, user_id=None):
+        if not user_id:
+            user = self.user
+        else:
+            user = self.user_model.get_by_id(user_id)
+        
+        if user:
+            try: 
+                if user.key.get().picture:
+               
+                    return webapp2.uri_for('userProfileImage', user_id = user.key.id())
+                else:
+                    if user.type == 'student':
+                        if user.gender == 'male':
+                            return '/market/static/img/avatar_male.png'
+                        elif user.gender == 'female':
+                            return '/market/static/img/avatar_female.png'
+                    else:
+                        return '/static/img/asso_logo.png'
+                
+            except AttributeError:
+            
+                if user.type == 'student':
+                    if user.gender == 'male':
+                        return '/market/static/img/avatar_male.png'
+                    elif user.gender == 'female':
+                        return '/market/static/img/avatar_female.png'
+                else:
+                    return '/static/img/asso_logo.png'
+            
+        
+        return None
+    
+    def handle_exception(self, exception, debug):
+        # Log the error.
+        
+        logging.exception(unicode(exception))
+
+        # Set a custom message.
+        if debug:
+            message = exception
+        else:
+            try:
+                message = exception.msg
+            except:
+                message = None
+        self.render_template('404.html', {'message':message})
+
+        # If the exception is a HTTPException, use its error code.
+        # Otherwise use a generic 500 error code.
+        if isinstance(exception, webapp2.HTTPException):
+            self.response.set_status(exception.code)
+        else:
+            self.response.set_status(500)
+    
+    def render_template(self, view_filename, context=None):
+        params = dict(self.gparams)
+        if not context is None:
+            params.update(context)
+        params['user'] = self.user
+        if self.user:
+            params['j_user'] = simplejson.dumps(self.user.get_user_in_dict())
+        jtemplate = jinja_environment.get_template(view_filename)
+        self.response.out.write((jtemplate.render(params)))
+    
+    @webapp2.cached_property
+    def mall(self):
+        """
+        Stores the mall key as a cached a property
+        """
+        mall_key = memcache.get_mall_key()
+        if mall_key:
+            return mall_key
+        else:
+            mall = Mall.get_or_create()
+            if mall:
+                mall_key = ndb.Key(mall.key.kind(), mall.key.id())
+                memcache.set_mall_key(mall_key)
+                return mall_key
+            return None
+        
+        

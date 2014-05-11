@@ -1,0 +1,22 @@
+
+{% block title %}Register a new user{% endblock %}
+
+{% block maincontent %}
+
+<h1>Register a new user</h1>
+{% block form %}
+<form action="/shop/signup" method="POST">
+<label for="name">Name</label>
+<input type="text" name="name" />
+<label for="email">Email address</label>
+<input type="text" name="email" />
+<label for="password">Password</label>
+<input type="password" name="password" />
+<label for="confirmpassword">Confirm Password</label>
+<input type="password" name="confirmpassword" />
+<label for="description">Description</label>
+<textarea id="txtArea" name="description" onkeypress="onTestChange();"></textarea>
+<input type="submit" value="Create user" />
+</form>
+{% endblock %}
+{% endblock %}

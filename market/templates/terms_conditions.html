@@ -1,0 +1,13 @@
+{% if user %}
+{% extends "home.html" %}
+{% else %}
+{% extends "index.html" %}
+{% endif %}
+
+
+
+{% block central_container %}
+<div id="terms">
+{{ terms_and_conditions() }}
+</div>
+{% endblock %}

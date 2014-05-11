@@ -1,0 +1,303 @@
+{% if user %}
+{% extends "home.html" %}
+{% else %}
+{% extends "index.html" %}
+{% endif %}
+{% block title %}
+{{ user.firstname }} - Profile
+{% endblock %}
+{% block head %} {{ super () }}
+<style type="text/css">
+@media (max-width: 480px){
+	.central_wrapper{
+		margin-left:-50px;
+		margin-right:-20px;
+		}
+		 .span9 {
+    width: 111.87292817100001%;
+    }
+	.controls .span10{
+		width:60%;
+		}
+	
+	}
+</style>
+{% endblock %}
+{% block central_container%}
+<div class="span9 well central_wrapper" >
+    <h3>Informations du Compte</h3><small>Modifier les informations sur votre compte<br>[N'oubliez pas d'enregistrer vos changements à la fin]</small>
+    <hr>
+   <form class="form-horizontal" enctype="multipart/form-data" method="post">
+            
+       <div class="control-group">
+    	<label class="control-label" for="f_name">Photo</label>
+    	<div class="controls">
+      		<div class="fileupload fileupload-new" data-provides="fileupload">
+                      <div class="fileupload-preview thumbnail" style="width: 200px; height: 150px;"><img src="{{profile_picture}}" style="width:100%; height: 100%;"/></div>
+                        <div><span class="btn btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Changer</span><input type="file" name="picture" value=""/></span>
+    <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Annuler</a>
+  </div>
+</div>
+    	</div>
+  	</div><hr>
+  
+  <div class="control-group">
+    <label class="control-label" for="f_name">Prénom</label>
+    <div class="controls">
+      <input type="text" id="f_name" name="firstname" class="span10" placeholder="{{user.firstname}}" value="{{user.firstname}}">
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="l_name">Nom</label>
+    <div class="controls">
+      <input type="text" id="l_name" name="name" placeholder="{{user.name}}" value="{{user.name}}" class="span10" required>
+    </div>
+  </div>
+  
+  {% if user.type == 'student' %}
+  <div class="control-group">
+    <label class="control-label" for="u_name">Ulaval Email</label>
+    <div class="controls">
+      <input type="text" id="u_email" name="u_email" placeholder="{{user.u_email}}" value="{{user.u_email}}" class="span10" required>
+    </div>
+  </div>
+  
+  {% endif %}
+ 
+    <div class="control-group">
+    <label class="control-label" for="descr">Description</label>
+    <div class="controls">
+      <textarea rows="2" name="description" placeholder="{% if user.description %}{{user.description}} {% else %} Breve description personnelle {%endif%}" class="span10"> {% if user.description %}{{user.description}} {% else %} Breve description personnelle {%endif%} </textarea>
+    </div>
+  </div>
+  
+    
+  
+  <div class="control-group">
+    <label class="control-label" for="dpt">Programme d'étude</label>
+    <div class="controls">
+      <select id="dpt" class="span10" name="major">
+       <option value="" disabled selected>{%if user.major %}{{user.major|major}}{% else %}Choisissez votre Departement{% endif %}
+       		<OPTION VALUE="ACT">Actuariat
+
+<OPTION VALUE="AEE">Admin. et éval. en éducation
+<OPTION VALUE="ADM">Administration
+<OPTION VALUE="ADS">Administration scolaire
+<OPTION VALUE="APR">Affaires publ. et représ. int.
+<OPTION VALUE="AGC">Agroéconomie
+<OPTION VALUE="AGF">Agroforesterie
+<OPTION VALUE="AGN">Agronomie
+<OPTION VALUE="ALL">Allemand
+<OPTION VALUE="AME">Aménagement du territoire
+<OPTION VALUE="ANM">Anatomie
+<OPTION VALUE="ANG">Anglais
+<OPTION VALUE="ANL">Anglais (langue)
+<OPTION VALUE="ANT">Anthropologie
+<OPTION VALUE="ARA">Arabe
+<OPTION VALUE="ARL">Archéologie
+<OPTION VALUE="ARC">Architecture
+<OPTION VALUE="GAD">Archivistique
+<OPTION VALUE="ARD">Art dramatique
+<OPTION VALUE="ANI">Art et science de l'animation
+<OPTION VALUE="ART">Arts
+<OPTION VALUE="ARV">Arts visuels
+<OPTION VALUE="ASR">Assurances
+<OPTION VALUE="BCM">Biochimie
+<OPTION VALUE="BCX">Biochimie médicale
+<OPTION VALUE="BIF">Bio-informatique
+<OPTION VALUE="BIO">Biologie
+<OPTION VALUE="BMO">Biologie cell. et moléculaire
+<OPTION VALUE="BVG">Biologie végétale
+<OPTION VALUE="BPH">Biophotonique
+<OPTION VALUE="CAT">Catéchèse
+<OPTION VALUE="CHM">Chimie
+<OPTION VALUE="CHN">Chinois
+<OPTION VALUE="CIN">Cinéma
+<OPTION VALUE="COM">Communication
+<OPTION VALUE="CTB">Comptabilité
+<OPTION VALUE="CNS">Consommation
+<OPTION VALUE="CSO">Counseling et orientation
+<OPTION VALUE="CRL">Création littéraire
+<OPTION VALUE="CRI">Criminologie
+<OPTION VALUE="DES">Design graphique
+<OPTION VALUE="DDU">Développement durable
+<OPTION VALUE="DVE">Développement économique
+<OPTION VALUE="DRI">Développement rural intégré
+<OPTION VALUE="DID">Didactique
+<OPTION VALUE="DRT">Droit
+<OPTION VALUE="ERU">Économie rurale
+<OPTION VALUE="ECN">Économique
+<OPTION VALUE="EDC">Éducation
+<OPTION VALUE="EPS">Éducation physique
+<OPTION VALUE="ENP">Enseignement préscol. et prim.
+<OPTION VALUE="ENS">Enseignement secondaire
+<OPTION VALUE="EER">Ens. en éthique et cult. rel.
+<OPTION VALUE="ENT">Entrepreneuriat
+<OPTION VALUE="ENV">Environnement
+<OPTION VALUE="EPM">Épidémiologie
+<OPTION VALUE="EGN">Ergonomie
+<OPTION VALUE="ERG">Ergothérapie
+<OPTION VALUE="ESP">Espagnol
+<OPTION VALUE="ESG">Espagnol (langue)
+<OPTION VALUE="ETH">Éthique
+<OPTION VALUE="EFN">Ethn. francoph. en Am. du N.
+<OPTION VALUE="ETN">Ethnologie
+<OPTION VALUE="EAN">Études anciennes
+<OPTION VALUE="FEM">Études féministes
+<OPTION VALUE="ETI">Études internationales
+<OPTION VALUE="PTR">Études patrimoniales
+<OPTION VALUE="GPL">Études pluridisciplinaires
+<OPTION VALUE="EXD">Examen de doctorat
+<OPTION VALUE="FOR">Foresterie
+<OPTION VALUE="FIS">Formation interdisc. en santé
+<OPTION VALUE="FPT">Formation prof. et technique
+<OPTION VALUE="FRN">Français
+<OPTION VALUE="FLE">Français lang. étr. ou seconde
+<OPTION VALUE="FLS">Français langue seconde
+<OPTION VALUE="GNT">Génétique
+<OPTION VALUE="GAA">Génie agroalimentaire
+<OPTION VALUE="GAE">Génie agroenvironnemental
+<OPTION VALUE="GAL">Génie alimentaire
+<OPTION VALUE="GCH">Génie chimique
+<OPTION VALUE="GCI">Génie civil
+<OPTION VALUE="GPG">Génie de la plasturgie
+<OPTION VALUE="GEX">Génie des eaux
+<OPTION VALUE="GEL">Génie électrique
+<OPTION VALUE="GSC">Génie et sciences
+<OPTION VALUE="GGL">Génie géologique
+<OPTION VALUE="GIN">Génie industriel
+<OPTION VALUE="GIF">Génie informatique
+<OPTION VALUE="GLO">Génie logiciel
+<OPTION VALUE="GMC">Génie mécanique
+<OPTION VALUE="GML">Génie métallurgique
+<OPTION VALUE="GMN">Génie minier
+<OPTION VALUE="GPH">Génie physique
+<OPTION VALUE="GGR">Géographie
+<OPTION VALUE="GLG">Géologie
+<OPTION VALUE="GMT">Géomatique
+<OPTION VALUE="GSO">Gestion des opérations
+<OPTION VALUE="GRH">Gestion des ress. humaines
+<OPTION VALUE="GSE">Gestion économique
+<OPTION VALUE="GSF">Gestion financière
+<OPTION VALUE="GIE">Gestion internationale
+<OPTION VALUE="GUI">Gest. urbaine et immobilière
+<OPTION VALUE="GRC">Grec
+<OPTION VALUE="HST">Histoire
+<OPTION VALUE="HAR">Histoire de l'art
+<OPTION VALUE="HTL">Histologie
+<OPTION VALUE="IFT">Informatique
+<OPTION VALUE="IDI">Interv. en déficience intell.
+<OPTION VALUE="IED">Intervention éducative
+<OPTION VALUE="ITL">Italien
+<OPTION VALUE="JAP">Japonais
+<OPTION VALUE="JOU">Journalisme
+<OPTION VALUE="KIN">Kinésiologie
+<OPTION VALUE="LMO">Langues modernes
+<OPTION VALUE="LOA">Langues orientales anciennes
+<OPTION VALUE="LAT">Latin
+<OPTION VALUE="LNG">Linguistique
+<OPTION VALUE="LIT">Littérature
+<OPTION VALUE="MNG">Management
+<OPTION VALUE="MRK">Marketing
+<OPTION VALUE="MAT">Mathématiques
+<OPTION VALUE="MED">Médecine
+<OPTION VALUE="MDD">Médecine dentaire
+<OPTION VALUE="MDX">Médecine expérimentale
+<OPTION VALUE="MEV">Mesure et évaluation
+<OPTION VALUE="MQT">Méthodes quantitatives
+<OPTION VALUE="MET">Méthodologie
+<OPTION VALUE="MCB">Microbiologie
+<OPTION VALUE="MSL">Muséologie
+<OPTION VALUE="MUS">Musique
+<OPTION VALUE="NRB">Neurobiologie
+<OPTION VALUE="NUT">Nutrition
+<OPTION VALUE="OCE">Océanographie
+<OPTION VALUE="OPV">Optique et santé de la vue
+<OPTION VALUE="ORT">Orthophonie
+<OPTION VALUE="PST">Pastorale
+<OPTION VALUE="PAT">Pathologie
+<OPTION VALUE="PUN">Pédagogie universitaire
+<OPTION VALUE="PHA">Pharmacie
+<OPTION VALUE="PHC">Pharmacologie
+<OPTION VALUE="PHI">Philosophie
+<OPTION VALUE="PHS">Physiologie
+<OPTION VALUE="PHT">Physiothérapie
+<OPTION VALUE="PHY">Physique
+<OPTION VALUE="PLG">Phytologie
+<OPTION VALUE="PFP">Planif. financière personnelle
+<OPTION VALUE="POR">Portugais
+<OPTION VALUE="PSA">Psychiatrie
+<OPTION VALUE="PSE">Psychoéducation
+<OPTION VALUE="PSY">Psychologie
+<OPTION VALUE="PPG">Psychopédagogie
+<OPTION VALUE="RLT">Relations industrielles
+<OPTION VALUE="RUS">Russe
+<OPTION VALUE="SAT">Santé au travail
+<OPTION VALUE="SAC">Santé communautaire
+<OPTION VALUE="POL">Science politique
+<OPTION VALUE="SAN">Sciences animales
+<OPTION VALUE="SBM">Sciences biomédicales
+<OPTION VALUE="SCR">Sciences des religions
+<OPTION VALUE="SBO">Sciences du bois
+<OPTION VALUE="SCG">Sciences géomatiques
+<OPTION VALUE="SIN">Sciences infirmières
+<OPTION VALUE="STA">Sciences, technologie aliments
+<OPTION VALUE="SVS">Service social
+<OPTION VALUE="SOC">Sociologie
+<OPTION VALUE="SLS">Sols
+<OPTION VALUE="STT">Statistique
+<OPTION VALUE="SIO">Système information organisat.
+<OPTION VALUE="TEN">Technologie éducative
+<OPTION VALUE="THT">Théâtre
+<OPTION VALUE="THL">Théologie
+<OPTION VALUE="TCF">Thérapie conjug. et familiale
+<OPTION VALUE="TRE">Thèse, recherche, mémoire
+<OPTION VALUE="TXM">Toxicomanie
+<OPTION VALUE="TRD">Traduction
+<OPTION VALUE="TED">Troubles envahissants du dév.
+       </select>
+    </div>
+  </div>
+   <div class="control-group">
+    <label class="control-label" for="phone">Numero de Telephone</label>
+    <div class="controls">
+      <input type="text" id="phone" name="phone" placeholder="{{user.phone}}" value="{{user.phone}}" class="span10">
+    </div>
+  </div><hr>
+  <!-- For now they are all hidden -->
+  	 <div class="control-group hidden">
+    <label class="control-label" for="Facebook">Facebook</label>
+    <div class="controls">
+      <button class="btn btn-primary">Connecter a Facebook</button>
+    </div>
+  </div>
+  	 <div class="control-group hidden">
+    <label class="control-label" for="twitter">Twitter</label>
+    <div class="controls">
+      <button class="btn btn-info">Connecter a Twitter</button>
+    </div>
+  </div>
+  
+  <hr>
+  
+    <div class="control-group">
+    <div class="controls">
+      <button type="submit" class="btn">Enregistrer les Changements</button>
+    </div>
+  </div>
+</form>
+</div>
+<div class="span3">
+        <div class="row-fluid">
+            <div class="span12 well">
+                <ul class="nav nav-list bs-docs-sidenav">
+                 <li><a href="#" style="background-color:lightgrey;"><i class="icon-info-sign"></i>Compte </a></li>
+                  <li><a href="/edit/password" ><i class="icon-lock"></i> Mot de passe </a></li>
+                  <li><a href="/edit/notifications"><i class="icon-envelope"></i>Notifications</a></li>
+                  
+                  
+                </ul>
+            </div>
+        </div>
+</div>
+{% endblock %}

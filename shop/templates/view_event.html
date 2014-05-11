@@ -1,0 +1,557 @@
+{% extends "home.html" %}
+
+
+
+<!-- Le bloc qui suit sert à placer le titre de la page -->
+
+{% block head %}
+{{ super() }}
+<style type="text/css">
+#totsales {
+	height: 155px;
+}
+.help-inline {
+	color: red;
+}
+#quantite{
+	display: none;
+}
+#sell_start_day{
+	display: none;
+}
+#sell_end_day{
+	display: none;
+}
+#prix{
+	display: none;
+}
+#
+#event-info{
+background-color:#ffffff;
+opacity:0.6;
+filter:alpha(opacity=60); /* For IE8 and earlier */
+}
+#rmv{
+	float: right;
+}
+#rmv:hover{
+	background-color: pink;
+}
+#dltbttn{
+	float: right;
+}
+</style>
+{% endblock %}
+
+{% block title %} {% if showingAllEvents %} Tous les evenements {% else
+%} {{ event.name }} {% endif %} {% endblock %}
+<!-- Fin bloc titre -->
+
+
+
+
+{% block left_side_bar %} {% if showingAllEvents %} {{ super() }} {%
+else %}
+
+<!-- Début du bloc representant le sidebar gauche -->
+
+
+<li class="nav-header">{{ event.name }}</li>
+<li class="{{sidebar_active|check_active("overview")}}"><a href="#">Overview</a></li>
+<li class="divider"></li>
+<li><a href="#">Attendees</a></li>
+<li class="divider"></li>
+<li><a href="#">View</a></li>
+<li class="nav-header">General</li>
+{{ super() }}
+
+
+
+
+
+<!-- Fin du bloc representant le sidebar gauche -->
+
+{% endif %} {% endblock %}
+
+
+
+
+
+
+
+<!-- Début bloc representant le contenu central-->
+
+{% block central_content %}
+
+<!-- Dans le cas ou c'est la liste des evenements à afficher -->
+
+{% if showingAllEvents %}
+<ul id="eventList">
+	<h2>Liste des événements</h2>
+	<hr>
+	{% if not events %}
+	<p class="text-center" style="margin-top:150px; font-size:18px;">Oups, Il semble que vous n'avez pas d'events prévus. <a href="{{url_for_create_event}}"> Créez en un maintenant</a></p>
+</ul>
+{% else %} 
+<table class="table table-hover">
+<tr>
+  <th>Nom</th>
+  <th>Description</th>
+  <th>Dernière modification</th>
+  <th>Jour J</th>
+</tr>
+{%for event in events %}
+<tr>
+	<td><a href="{{url_for_showEvent}}?event_id={{event.id}}"> {{ event.name}} </a></td>
+	<td> {{ event.description}} </td>
+	<td> {{ event.date_modified|datetime(format_type="medium")}} </td>
+	<td> {{ event.date_event|datetime }}<a href="#"><i id="rmv"class="icon-remove"></i></a></td>
+</tr>
+{% endfor %}
+</table>
+
+</ul>
+{% endif %}
+
+<!-- Fin du cas de la liste des evenements à afficher -->
+
+<!-- Debut du cas ou c'est un evenement particulier à afficher -->
+{% else %}
+
+
+
+
+
+
+
+<div id="event" class="row-fluid">
+  <div id="event-info">
+	<h3>
+		{{event.name}} <small> Créé le
+			{{event.date_created|datetime}}</small>
+            
+            
+	</h3>
+    <dl class="dl-horizontal">
+    <dt> C'est quoi? </dt>
+    <dd>{{ event.description }}</dd><br/>
+	
+	<dt> Où? </dt>
+    <dd>
+	<address>
+		<strong>{{ event.venue_name }}</strong><br> {{
+		event.venue_addresse }}
+	</address>
+    </dd>
+    <dt> Quand? </dt>
+    <dd> {{ event.date_event|datetime}}</dd>
+    </dl>
+	</div>
+	<hr>
+	<table id="tickets" class="table table-bordered" {% if tickets==None or event.type == 'free'
+		%} style="display: None"{% endif %}>
+		<thead>
+			<tr>
+				<th>Catégorie</th>
+				<th>Section</th>
+				<th>Rangée</th>
+				<th>Quantité</th>
+				<th>Prix</th>
+				<th>Début de Vente</th>
+				<th>Fin de Vente</th>
+				<th></th>
+			</tr>
+		</thead>
+		{% if tickets %} {% for ticket in tickets %}
+    
+		<tr>
+			<td>{{ticket[0].category}}</td> {% if ticket[0].category == "general" %}
+			<td>N/A</td>
+			<td>N/A</td> {% else %}
+
+			<td>{{ ticket[0].section }}</td>
+			<td>{{ ticket[0].row }}</td> {% endif %}
+			<td>{{ ticket[0].quantity }}</td>
+			<td>{{ ticket[0].price }}$</td>
+			<td>{{ ticket[0].sell_start|datetime(format_type="medium")}}</td>
+
+			<td>{{ ticket[0].sell_end|datetime (format_type="medium")}}</td>
+			<td><a href="{{ticket[1]}}" class="btn btn-small btn-secondary edit-ticket-btn">edit</a></td>
+		</tr>{% endfor %} {% endif %}
+	</table>
+    
+	<br> <a href="{{url_for_editEvent}}"><button
+			class="btn  btn-primary" type="button">Modifier</button></a>
+    
+	<!--Button to toggle Modal -->
+    {% if event.type == 'paid' %}
+	<a href="#create-ticket-modal" role="button"
+		class="btn btn-primary" data-toggle="modal">
+        Ajouter des tickets
+            
+        </a>
+        {% endif %}
+    
+     
+        
+          
+          <a href="#"><button
+			class="btn  btn-primary" id="published-status" type="button" disabled {% if not event.published
+		%} style="display: None"{% endif %}>Publié <i class="icon-ok"> </i></button></a>
+          
+        <a href="#"><button
+			class="btn  btn-primary" type="button"data-loading-text="En cours..." data-complete-text="Published" onClick="publish_event('{{url_to_publish_event}}')" id="publish-button" {% if (tickets==None and event.type == 'paid') or event.published
+		%} style="display: None"{% endif %}>Publier sur le marché</button></a>
+          
+         
+		<a id="dltbttn" href="#"><button class="btn btn-danger"> Effacer évenément</button></a>
+
+
+	<!-- Modal -->
+
+	<div id="create-ticket-modal" class="modal hide fade" tabindex="-1"
+		role="dialog" aria-labelledby="create-ticket-modal-label"
+		aria-hidden="true">
+
+		
+	</div>
+    
+    <div id="edit-ticket-modal" class="modal hide fade" tabindex="-1"
+		role="dialog" aria-labelledby="edit-ticket-modal-label"
+		aria-hidden="true">
+
+		
+	</div>
+	<!-- End of Modal -->
+
+
+
+
+
+</div>
+<!-- Event of event Info -->
+
+
+<hr>
+<div class="row-fluid">
+	<div class="span6">
+		<div class="hero-unit">
+			<ul class="nav nav-list">
+				<li class="nav-header">Stats</li>
+				<li>Status</li>
+				<li>Vendus</li>
+				<li>Disponible</li>
+				<li>Days to the Event</li>
+			</ul>
+		</div>
+	</div>
+	<div class="span6">
+		<div class="hero-unit" id="totsales">
+			<ul class="nav nav-list">
+				<li>Total Sales</li>
+				<li>Fees</li>
+				<li>Total Net Income</li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+
+
+{% endif %}
+
+<!-- Fin du cas d'un evenement particulier -->
+
+
+{% endblock %}
+
+
+<!-- Fin du block du contenu -->
+
+
+{% block script %} {{ super () }}
+
+
+    <script>
+	
+	//FUNCTION DEFINITION
+	
+	// function to a ticket form into a modal
+	function load_form_ticket_into_modal(modal, url){
+		
+		
+		$(modal).html('<center><img src="/static/img/loader.gif" /></center>').load(url, function(response, status, xhr) {
+            if (status == "error") {
+               var msg = "Sorry but there was an error: ";
+               alert(msg + xhr.status + " " + xhr.statusText);
+               }
+            $("#sell_start").datetimepicker({minDate:"+0d"});
+            $("#sell_end").datetimepicker({minDate:"+0d"});
+        });
+	}
+	
+	 // function to return a row filled with ticket informatio
+	function get_ticket_in_html(ticket){
+	    
+		var ticket_html= '<td>'+ticket.category+'</td>';
+				if (ticket.category == "general") {
+					ticket_html += '<td>N/A</td><td>N/A</td>';
+				}
+				else{
+					ticket_html += '<td>'+ticket.section+'</td><td>' +ticket.row +'</td>';
+					}
+				ticket_html += '<td>'+ticket.quantity+'</td><td>'+ticket.price+'$'+'</td><td>'+ticket.sell_start+'</td><td>'+ ticket.sell_end+ '</td><td><button class="btn btn-small btn-secondary">edit</button></td>';
+				
+				return ticket_html;
+		
+	}
+	
+	</script>
+
+<script type="text/javascript">
+
+
+$(document).ready(function() {
+	
+	document.getElementById("event-info").style.backgroundImage = "url('{{url_for_event_image}}')";
+	document.getElementById("event-info").style.backgroundPosition = "right";
+	document.getElementById("event-info").style.backgroundRepeat = "no-repeat";
+		// load the form to create ticket into the create-ticket-modal
+		
+	load_form_ticket_into_modal("#create-ticket-modal","{{url_for_createTicket}} #create-ticket-content");
+
+	
+	// validation
+	
+	  // VALIDATION SCRIPTS
+
+  //validate quantite
+  function chk_qte(){
+      var quant=document.getElementById("qte").value;
+      if (quant<=0){
+          document.getElementById("quantite").style.display="block";
+    	  return false;
+      }
+      else{
+		  
+          document.getElementById("quantite").style.display="none";
+    	  return true;
+      }
+  }
+
+    //validate price
+    function chk_price(){
+    	var price=document.getElementById("price").value;
+    	if (price<=0) {
+    		document.getElementById("prix").style.display="block";
+    		return false;
+    	}
+    	else{
+    		document.getElementById("prix").style.display="none";
+    		return true;
+    	}
+    }
+
+
+function validate_ticket_form(){
+	
+	 return chk_qte() && chk_price();
+}
+
+$("#create-ticket-modal").on('blur', "#qte", chk_qte);
+$("#create-ticket-modal").on('blur', "#price", chk_price);
+
+
+    
+	$("#create-ticket-modal").on('submit',"#create-ticket-form", function(event){
+       
+	   //prevent form from submitting
+	   
+	   
+	   event.preventDefault();
+	   
+	   // check if quantite and price are valid
+	   if (!validate_ticket_form){
+		         
+				 return false;
+    			}
+				
+	    // this is our form 
+	    var form = $(this) ;
+			 
+
+			 // post the form to the server
+			 $.ajax({
+			 type: "POST",
+			 url:"{{url_for_rpc_create_ticket}}", 
+			 dataType:"json",
+			 async: false,
+			 data: form.serialize(), 
+			 success:function(data){
+				 
+				 // reset the form
+				 form[0].reset();
+				 //close the modal
+				 $("#create-ticket-modal").modal('hide');
+				 
+				 // add the returned ticket in the table row
+				var ticket = data;
+				var ticket_html ='<tr class="success">'+ get_ticket_in_html(ticket)+'</tr>';
+				
+				 document.getElementById('tickets').style.display="";
+				 $("#tickets").append(ticket_html);
+				 document.getElementById('publish-button').style.display="";
+				 
+				 
+				
+			 },
+			 error: function(request, error){
+			        alert(request.ResponseText);
+			  }});
+			 
+			 return false;
+			
+		  });
+	
+	
+	 
+	var tableau_raw = $(".edit-ticket-btn").click(function(e) {
+	    
+		
+	    tableau_row = $(this).parents('tr');	
+	    url = $(this).attr('href'); 	
+	
+	    var modal_selector = "#edit-ticket-modal"; 
+	
+	    // load edit form into modal
+	    load_form_ticket_into_modal(modal_selector, url+" #edit-ticket-content");
+	    
+		
+	    // show modal
+	    $(modal_selector).modal('show');
+	    
+		e.preventDefault();
+		
+		return tableau_raw;
+		 
+     });
+	 
+	 
+	 
+	 $("#edit-ticket-modal").on('submit',"#edit-ticket-form", function(event){
+       
+	   //prevent form from submitting
+	   event.preventDefault();
+	   
+	   // check if quantite and price are valid
+	   
+	    
+	   if (!validate_ticket_form()){
+		   
+				 return false;
+    			}
+				
+	    // this is our form
+		
+		
+	    var form = $(this) ;
+		var url = form.attr('action');
+		url = url.replace('shop', 'shop/rpc');
+		
+			 
+
+			 // post the form to the server
+			 $.ajax({
+			 type: "POST",
+			 url:url, 
+			 dataType:"json",
+			 async: false,
+			 data: form.serialize(), 
+			 success:function(data){
+				 
+				 // reset the form
+				 
+				 //close the modal
+				 $("#edit-ticket-modal").modal('hide');
+				 
+				 // add the returned ticket in the table row
+				var ticket = data;
+				
+				tableau_row.addClass("success");
+				
+				var ticket_html =get_ticket_in_html(ticket);
+				
+				 
+				 tableau_row.html(ticket_html);
+				 
+				 
+				 
+				
+			 },
+			 error: function(request, error){
+			        alert(request.ResponseText);
+			  }});
+			 
+			 return false;
+			
+		  });
+});
+
+</script>    
+    
+<script type="text/javascript">
+
+
+    function trigger(){
+      document.getElementById('specific_type').style.display="none";  
+    }
+    function trigger1(){
+      document.getElementById('specific_type').style.display="block";
+    }
+
+
+
+     //validation functions
+
+     
+
+
+    // //validate start date
+    // function chck_dte_strt(){
+    // 	var date_now=new Date();
+    // 	var date_start=document.getElementById("sell_start").value;
+    // 	var date=new Date(date_start);
+    // 	if (date>=date_now){
+    // 		document.getElementById("sell_start_day").style.display="none";
+    // 		dbt_dte_val=true;
+    // 	}
+    // 	else{
+    // 		document.getElementById("sell_start_day").style.display="block";
+    // 		dbt_dte_val=false;
+    // 	}
+    // 	chck_dte_end();
+    // }
+    // //validate end date
+    // function chck_dte_end(){
+    // 	var date_start=document.getElementById("sell_start").value;
+    // 	var date_dbt=new Date(date_start);
+    // 	var date_end=document.getElementById("sell_end").value;
+    // 	var date_fin=new Date(date_end);
+    // 	if(date_fin<=date_dbt){
+    // 		document.getElementById("sell_end_day").style.display="block";
+    // 		fn_dte_val=false;
+    // 	}
+    // 	else{
+    // 		document.getElementById("sell_end_day").style.display="none";
+    // 		fn_dte_val=true;
+    // 	}
+    // }
+
+
+    </script>
+    
+
+
+
+
+{% endblock %}

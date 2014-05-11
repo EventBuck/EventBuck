@@ -1,0 +1,80 @@
+{% extends "admin.html" %}
+
+{% block central_container %}
+<div id="central-container" class="well" style="min-height:380px;">
+<!-- Dans le cas ou c'est la liste des evenements à afficher -->
+
+<ul id="eventList">
+	<h2>Liste des events à vérifier</h2>
+	<hr>
+	{% if not reports %}
+	<p class="text-center" style="margin-top:150px; font-size:18px;">Aucun Report disponible pour l'instant!</p>
+</ul>
+{% else %} 
+<table class="table table-hover" style="font-weight:bolder;">
+<tr>
+  <th>Event concerné</th>
+  <th>Utilisateur signalant</th>
+  <th>Date signalé</th>
+  <th></th>
+</tr>
+{%for report in reports %}
+<tr>
+	<td><a href="/{{report.event.seller_id}}/{{report.event.id}}">{{ report.event.name}}</a></td>
+	<td><a href="/{{report.reporter_id}}">{{report.reporter}}</a> </td>
+	
+	<td> {{ report.reported_time|datetime }}</td>
+    <td> <button> Examine </button> </td>
+</tr>
+{% endfor %}
+</table>
+
+</ul>
+{% endif %}
+
+{% if one_event %}
+<div id="event" class="row-fluid">
+  <div id="event-info">
+	<h3>
+		{{event.name}} <small> Créé le
+			{{event.date_created|datetime}}</small>
+            
+            
+	</h3>
+    <dl class="dl-horizontal">
+    <dt> C'est quoi? </dt>
+    <dd>{{ event.description }}</dd><br/>
+	
+	<dt> Où? </dt>
+    <dd>
+	<address>
+		<strong>{{ event.venue_name }}</strong><br> {{
+		event.venue_addresse }}
+	</address>
+    </dd>
+    <dt> Quand? </dt>
+    <dd> {{ event.date_event|datetime}}</dd>
+    </dl>
+	</div>
+	<hr>
+	           
+		<a id="dltbttn" href="#"><button class="btn btn-danger"> Effacer évenément</button></a>
+
+
+	
+
+
+
+
+
+</div>
+<!-- Event of event Info -->
+
+
+<hr>
+
+
+
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,137 @@
+    <!--Mobile page-->
+<div class="visible-phone right transparent">
+	<div class="span9 well signin" id="signin">
+    	<!--Sign in Mobile-->
+        <form class="form-horizontal"  method="post">
+        	<div class="row-fluid">
+            <span class="label_name"><center>Vous possédez déjà un compte?</center></span>
+            </div><br />
+          <div class="row-fluid">
+			<input type="text" id="inputEmail" placeholder="Addresse Couriel" required
+					name="email" class=" inputField">
+          </div><br />
+          <div class="row-fluid">
+			<input type="password" id="inputPassword" class="input-small inputField"
+					placeholder="Mot de Passe" name="password" required>
+          </div><br />
+          <div class="row-fluid">
+			<button type="submit" class="btn inputField btn-primary">Se connecter</button>
+          </div>
+        </form>
+    </div>
+    <!--Sign up user Mobile-->
+<div class="visible-phone row-fluid ">
+	<div class="span9 well" id="central_wrapper">
+    	<div class="signup-form" id="mob-form">
+        <center><button class="btn btn-primary inputField" style="height:30%;" onclick="authUser(); return false;" ><span class="btn_txt"><img src="/shop/static/img/fbicon3.png">Connexion avec Facebook</span></button></center><br>
+        <center><button class="btn btn-primary inputField" id="EB_signup" style="height:30%;"><span class="btn_txt">Enregistrez-vous avec votre email</span></button></center>
+        </div>
+        <div class="buck_form">
+     <form  class='user-signup' action="{{url_for_signup}}" method="post">
+     	<div class="row-fluid">
+        	<div class="input-prepend"><span class="add-on"><i class="icon-user"></i></span>
+                  <input type="text" id="inputfirstname" placeholder="Prénom" required
+          name="firstname">
+          	</div>
+            <div class="input-prepend"><span class="add-on"><i class="icon-user"></i></span>
+            <input type="text" id="inputlastname" placeholder="Nom" required
+          name="name">
+          </div>
+        </div>
+        <div class="row-fluid">
+          	<div class="input-prepend">
+                <span class="add-on"><i class="icon-envelope"></i></span>
+                <input id="email" type="text" placeholder="Addresse email"  name='email' required >
+              </div> 
+        </div>
+        <div class="row-fluid">
+        		<div class="input-prepend"><span class="add-on"><i class="icon-lock"></i></span>
+                 <input type="password" id="inputPassword"
+          placeholder="Nouveau mot de passe" name="password" required>
+                 </div>
+                 <div class="input-prepend"><span class="add-on"><i class="icon-lock"></i></span>
+                 <input type="password" id="inputPassword"
+          placeholder="Confirmer votre mot de passe" name="confirm_password" required>
+                 </div>
+        </div>
+        <div class="row-fluid">
+        	<span style="margin-right:10px;"><input type="radio" name="gender" value="male"> Homme </span>
+               <span><input type="radio" name="gender" value="female" > Femme </span>
+        </div><br>
+        <div class="row-fluid">
+        		<div class="input-prepend">
+                <span class="add-on"><i class="icon-envelope"></i></span>
+                <input id="email" type="text" placeholder="Email ULaval (@ulaval.ca)" name="u_email" required ><br/>
+                <a href="#" style="font-size:12px;">Ceci nous permettra d'éviter les intrus!!</a>
+              </div>
+        </div>
+        <div class="row-fluid">
+                 <span class="cond_span span10">En cliquant sur "S'enregistrer" Vous confirmez que:
+                 Vous avez lu et accepté nos {{ terms_link() }}</span>
+
+        </div>
+        <div class="row-fluid">
+        	<div class="clearfix span10"><div style=" float:right;"><a href="#" id="cancel_registration">Annuler</a> <button class="btn btn-primary" type="submit"><i class="icon-chevron-right icon-white"></i>&nbsp;S'enregistrer</button></div></div>
+        </div>
+     	</form>
+     </div>
+     <!--End sign up form user Mobile-->
+     <!-- Sign up form for shop Mobile-->
+     <div class="shop_signup">
+     	<form class="signup-form" id="asso-signup-form" action="/shop/signup" method="post"
+		onSubmit="return FormValidation();">
+        <div class="row-fluid">
+        	<div class="input-prepend">
+                <span class="add-on"><i class="icon-envelope"></i></span>
+                <input id="email" type="text" placeholder="Addresse email"  name='email' required class="input_shop">
+              </div>
+              <div class="input-prepend">
+                <span class="add-on"><i class="icon-envelope"></i></span>
+                  <input id="email" type="text" placeholder="Re-entrez votre email"  name='confirm_email' required  class="input_shop">
+                  </div>
+        </div>
+        <div class="row-fluid">
+        		<div class="input-prepend"><span class="add-on"><i class="icon-lock"></i></span>
+                 <input type="password" id="inputPassword"
+          placeholder="Nouveau mot de passe" name="password" required class="input_shop">
+                 </div>
+        </div>
+        <div class="row-fluid">
+        	<div class="input-prepend"><span class="add-on"><i class="icon-briefcase"></i></span>
+				<input type="text" name="name"
+					placeholder="Nom de l'association" required class="input_shop" />
+			</div>
+        </div>
+        <div class="row-fluid">
+        		<div class="input-prepend"><span class="add-on"><i class="icon-info-sign"></i></span>
+				<input type="tel" name="telephone" placeholder="Votre numéro de contact" class="input_shop"/>
+			</div>
+        </div>
+        <div class="row-fluid">
+        		<textarea  rows="3" name="description" required
+					placeholder="Entrez une petite description de votre organisation" class="input_shop"></textarea>
+        </div>
+        <div class="row-fluid">
+                 <span class="cond_span span10">En cliquant sur "S'enregistrer" Vous confirmez que:
+                 Vous avez lu et accepté nos {{ terms_link() }}</span>
+
+        </div>
+        <div class="row-fluid">
+        	<div class="clearfix span10"><div style=" float:right;"><button class="btn btn-primary" type="submit"><i class="icon-chevron-right icon-white"></i>&nbsp;S'enregistrer</button></div></div>
+        </div>
+        
+        </form>
+     </div>  
+     <!-- End signup form shop mobile-->
+         <!-- small div to show message-->
+          <div class="row-fluid visible-phone">
+          <span class="signup-label span12" id="signup-label-phone"><center>S'enregistrer en tant qu'association étudiante? <a class="signup-label-btn" href="">Cliquez ici</a></center></span>
+    <span class="signup-label span10" style="display:none;"><center>S'enregistrer en tant qu'étudiant(e)? <a class="signup-label-btn" href="" >cliquez ici</a></center></span>
+    	</div>
+        <!-- -->
+    </div>
+    
+    </div>
+	
+</div>
+<!--End Mobile page-->

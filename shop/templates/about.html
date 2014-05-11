@@ -1,0 +1,79 @@
+{% extends "base1.html" %}
+
+{% block content %}
+<style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+         .container-narrow {
+        margin: 0 auto;
+        max-width: 700px;
+      }
+      .container-narrow > hr {
+        margin: 30px 0;
+      }
+      #tit{
+        font-family: 'Helvetica Nueve', Helvetica, sans-serif;
+        font-size: 48px;
+        line-height: 72px;
+        text-align: center;
+        color: green;
+      }
+      #tit2{
+        font-family: 'Helvetica Nueve', Helvetica, sans-serif;
+font-size: 20px;
+line-height: 30px;
+text-align: center;
+min-width: 600px;
+      }
+      #about_container{
+        width: 100%;
+        }
+        #imgdiv{
+          width: 100%;
+        }
+    </style>
+<div class="container-narrow">
+    <h1 id="tit">OJOTICKET <small> [THE PROJECT] </small></h1>
+    <h2 id="tit2">Encore un peu de patience, vous ne serez pas déçus!</h2>
+    <div class="hero-unit">
+      <center><iframe src="https://freesecure.timeanddate.com/countdown/i3p8uf64/n189/cf110/cm0/cu4/ct0/cs1/ca0/cr0/ss0/cac00f/cpc000/pca0bfd5/tc66c/fn2/fs100/szw448/szh189/tatNous%20serons%20l%C3%A0%20bient%C3%B4t/tac000/tptTime%20since%20Event%20started%20in/tpc000/matJour%20J%20-/mac000/mpc000/iso2013-09-03T12:00:00" frameborder="0" width="448" height="189"></iframe></center>
+      <div class="row_fluid">
+      {% if production %}
+          <h4><b>About us</b></h4>
+          Je ne suis jamais au courant quand il y a un grand party organisé par les etudiantes en sciences infirmières(oui, ben oui!), et oui je ne sais souvent pas quels sont les grands partys organisés à l'université car je ne lis presque jamais les affiches qu'on poste à l'université. Mais je veux quand-même savoir quels sont les partys organisés chaque fois à l'université, quel est le plus populaire de toutes les facultés et quand ça aura lieu précisement. C'est à cause de ça qu'est né ce projet.... 
+
+          <h4><b>Our Mission</b></h4>
+          Notre mission est simple rendre l'experience de la participation aux activités para-académiques, simple et fun. Nous voulons que le 3 ou 4 ans de votre vie à l'université ne ressemble pas à une période de stress et de quelque chose de pas intéressant du tout! Non on veut que vous puissiez tout savoir sur les activités para-académiques proposées, lequelles ont la plus grande participation. Nous voulons que dès que tu te sens stressé, tu puisses directement trouver l'activité intéressante qui se déroule à l'université et qui peut te permettre de destresser. Que tu aimes les partys, les LAN pour gamers, la dance, le sport, en fait tout ce qui est organisé à l'université, Nous on veut que tu saches directement où te rendre.
+          
+          {% endif %}
+          
+          <h4><b>[LA GANG]</b></h4>
+<dl class="dl-horizontal">
+<dt>
+      <img src="static/img/didia.png" style="width:96px; height: 96px;" alt="">
+      </dt>
+      <dd>
+      <h6><a href="#">Didia Aristote a.k.a TheFuture</a></h6>
+      <p style="font-size:12px;">Co-Fondateur et développeur logiciel. Actuellement étudiant en génie logiciel à l'Université Laval, Aristote est passioné de la programmation. Son rêve? voyager dans le future. Dans ses temps libres, il joue au Scrabble, à Fifa et à HackerRank. (<a href="#">@aristodj</a> sur Twitter) </p>
+      </dd>
+      <br/>
+      <dt>
+      <img src="static/img/jake.jpg" style="width:96px; height: 96px;" alt="">
+      </dt>
+      <dd>
+      <h6><a href="#">Jake Ibee a.k.a Zaki</a></h6>
+      <p style="font-size:12px;">Co-Fondateur et UI lead designer. Entrepreneur de naissance, Il investit diverses ressources pour des idées qui peuvent apporter des changements et le développement de l'Afrique. Dans ses temps libres, il ecoute la musique, suit des films et joue aux jeux vidéos</b>(<a href="#" >@jakeibee </a> sur Twitter) </p>
+      </dd>
+      </dl>
+   
+
+          <h4><b>Contact us</b></h4>
+          Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
+      </div>
+    </div>
+    </div>
+   
+ {% endblock content %}
+ 
+ 

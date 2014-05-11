@@ -1,0 +1,100 @@
+{% extends "home.html" %} {% block title %} {% if edit %} Modifier
+l'evenement {{ event.name }} {% else %} Créer un évenement {% endif %}
+
+{% endblock %} 
+{% block central_content %} {% if edit %}
+
+<h2>
+	Modifier l'évenement {{event.name}}
+	<h2>
+		{% else %}
+		<h2>Create Event</h2>
+		{% endif %}
+		<hr>
+		<form class="make-border"
+			action="{% if edit %} {{ url_for_editEvent }} {% else %} {{ url_for_createEvent}} {% endif %}"
+			class="form-horizontal" enctype="multipart/form-data" method="post" style="font-weight:bolder;">
+			<div class="control-group">
+				<label class="control-label">Nom de l'Evenement:</label>
+				<div class="controls">
+					<input type="text" id="eventName" required placeholder="Nom de l'événement"
+						class="span7" name="name"
+						value="{% if edit %}{{event.name}} {% endif %}">
+				</div>
+			</div>
+
+			<div class="control-group">
+				<label class="control-label">Description</label>
+				<div class="controls">
+					<textarea class="span7" rows="4" placeholder="Decrire l'événement..."
+						required name="description">{% if edit %}{{event.description}} {% endif %}</textarea>
+				</div>
+			</div>
+            
+            <div class="control-group">
+				<label class="control-label">Catégorie:</label>
+				<div class="controls">
+                   <select name="category"
+							class="span4">
+                            <option value="other"> Quel genre d'événement? </option>
+                            <option value="academic">Académique</option>
+							<option value="party" >Party</option>
+                            <option value="sport">Sport</option>
+                            <option value="other"> Divers </option>
+						</select>
+				</div>
+			</div>
+
+			<div class="control-group">
+				<label class="control-label">Nom du Lieu:</label>
+				<div class="controls">
+					<input type="text" id="venue_name" required
+						placeholder="Où se déroule l'evenement" class="span7"
+						name="venue_name" value="{% if edit %}{{event.venue_name}} {% endif%}">
+				</div>
+			</div>
+
+			<div class="control-group">
+				<label class="control-label">Adresse du Lieu</label>
+				<div class="controls">
+					<input type="text" id="venue_addresse" required placeholder=""
+						class="span7" name="venue_addresse"
+						value="{% if edit %}{{event.venue_addresse}}{% endif%}"> <input
+						type="hidden" id="geolocation" name="geo_location">
+				</div>
+			</div>
+
+			<div class="control-group">
+				<label class="control-label">Date and time</label>
+				<div class="controls">
+					<input type="text" name="date_event" id="date_event" value="{% if edit %}{{ event.date_event|datetime_to_jquery}}{% endif %}"/>
+				</div>
+			</div>
+            
+			<div class="control-group">
+				<label class="control-label">Event Images</label>
+				<div class="controls">
+					<div class="fileupload fileupload-new" data-provides="fileupload">
+                      <div class="fileupload-preview thumbnail" style="width: 200px; height: 150px;"></div>
+                        <div><span class="btn btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span><input type="file" name="image" /></span>
+    <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+  </div>
+</div>
+				</div>
+			</div>
+
+			<div class="control-group">
+				<label class="control-label">Terms & Conditions </label>
+				<div class="controls">
+					<textarea class="span7" rows="4"
+						placeholder="Terms and Conditions..." name="terms">{% if edit %}{{event.terms}} {% endif %}</textarea>
+				</div>
+			</div>
+			<div class="control-group">
+				<div class="controls">
+					<button type="submit" class="btn">{% if edit %} Modifier
+						Evenement {% else %} Create Event {% endif %}</button>
+				</div>
+			</div>
+         </form>
+			{% endblock %} 

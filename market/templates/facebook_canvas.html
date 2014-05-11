@@ -1,0 +1,660 @@
+{% extends "base.html" %} 
+
+
+{% macro attend_button(event) -%}
+{% if user %}
+{% if not event.seller_id == user.key.id() %}
+<div class="btn-going-{{event.key}} attend-button">
+ {% if attending or event.attending%}
+                                   
+                                     <div class="btn-group">
+                                   <button class="btn btn-success dropdown-toggle" data-toggle="dropdown">J'y serai <span class="caret"></span></button>
+                                                                
+                                    <ul class="dropdown-menu">
+                                      <!--<li><a href="#">Peut-être</a></li>-->
+                                      <li><a href="#" onClick="kill_attend('{{event.key}}', '{{event.attend_key}}', '{{url_for_attend}}'); return false;">Je ny serai pas</a></li>
+                                    </ul>
+                                  </div> 
+                                {% else %}
+                                    <button href="#" role="button" class="btn btn-primary" onClick="attend_event('{{event.key}}', '{{url_for_attend}}'); return false;"><i class="icon-thumbs-up"></i> J'y serai</button>
+
+                                {% endif %}
+                                
+                                </div>
+                                {% endif %}
+                                {% endif %}
+{%- endmacro %}
+
+{% macro report_button(event) -%}
+{% if user %}
+{% if not event.seller_id == user.key.id() %}
+<div class="dropdown pull-right">
+                                 <button type="button" class="dropdown-toggle close" data-toggle="dropdown"><i class="icon-chevron-down"></i></button>
+                                 <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onClick="report_event('{{event.key}}'); return false;">Signaler comme inappropriée</a></li>
+                                 </ul>
+                               </div>
+{% endif %}
+{% endif %}
+{%- endmacro %}
+
+{% macro event_container(events, attending = False) -%}
+					<div class="row-fluid" id="event-container">
+                    
+                    
+                    {% if not events %}
+                    
+                    Aucun événement trouvé .
+                    
+                    {% else %}
+                      
+					  <ul class="thumbnails" id="events">
+                      <div class="row-fluid block-of-3">
+                        {% for event in events %}
+                        <li class="span4" itemscope itemtype="http://schema.org/Event">
+                          <div class="thumbnail">
+                            <div class="row-fluid">
+                            <div  style="height:100%;">
+                            <a class="event-info-link" href="{{event.seller_id}}/{{event.id}}" data-href="#evMod-{{event.key}}" data-toggle="modal">
+                              <img class="event-image" src="{% if event.image_url %}{{event.image_url}}=s266{% else %}{{event.image}}{% endif %}" alt="Event Image" ></a>
+                             
+                            
+                              
+                            
+                            
+                              <div class="caption">
+                                
+                                {{ report_button(event) }}
+                                <h4 class="text-center event-name" ><a itemprop="url" href="{{event.seller_id}}/{{event.id}}">{{event.name}}</a></h4>
+                                <p class="event-organiser"> Publié par: {% if event.seller_id %}<a href="/{{event.seller_id}}">{{event.seller}} </a> {% else %} {{ event.seller }} {% endif %}</p>
+                                <p class="event-organiser">
+                                <span itemprop="startDate"><i class="icon-time"></i> {{event.date_event|datetime}}</span><br/>
+                                  <span itemprop="location" itemscope itemtype="http://schema.org/Place"><i class="iconic-map-pin-alt"> </i><strong>{{event.venue_name}}</strong></span>
+                                 </p>
+                                 
+                                 <div class="row-fluid">
+                                {% if user and user.type == "student" %}
+                                    
+                                   {{attend_button(event)}}
+                                
+                                {% endif %}
+
+                                </div>
+                                
+                                </div>
+                                
+                                
+         
+                                
+                              </div>
+                          </div>
+                        </li>
+                        {% if loop.index % 3 == 0 or loop.last %}
+                        </div>
+                        {% if not loop.last %}
+                        <div class="row-fluid block-of-3">
+                        {% endif %}
+                        {% endif %}
+                        {% endfor %}
+                 </ul>
+                 
+                 
+             
+                {% endif %} 
+                
+                 
+         </div>   
+         {%- endmacro %}
+ 
+{% macro event_modals(events) -%}
+
+
+{% for event in events %}
+<div id="evMod-{{event.key}}" class="modal hide fade " tabindex="-1" role="dialog" aria-labelledby="evMod-{{event.key}}Label" aria-hidden="true" style="width:800px;">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="evMod-{{event.key}}Label">{{ event.name}}</h3>
+  </div>
+  <div class="modal-body ">
+    <div class="row-fluid">
+      <div class="span5" id="evMod-{{event.key}}Image"> </div>
+      <div class="span7">
+      <div class="row-fluid">
+        <dl class="dl-horizontal">
+          <dt> C'est quoi? </dt>
+          <dd> {{ event.description }} </dd> <br/>
+          <dt> Quand? </dt>
+          <dd> {{ event.date_event|datetime }} </dd> <br/>
+          <dt> Où ? </dt>
+          <dd> 
+            <address>
+		      <strong>{{ event.venue_name }}</strong><br> {{event.venue_addresse }}
+	        </address>
+          </dd>
+          {% if event.terms %}
+          <dt> Conditions ? </dt>
+          <dd> {{ event.terms}} </dd> <br/>
+          {% endif %}
+        </dl>
+           
+       </div>
+       <i class="icon-arrow-right"> </i> Voir la <a href="{{event.seller_id}}/{{event.id}}"> page de l'event</a>
+       {% if user and user.type == "student" %}
+        
+                                    {{attend_button(event)}}
+                               
+                               {% endif %}
+                                
+            </div>
+{% if event.url %}
+                                  <p class="event-organiser event-source pull-right"><small>Source: <a style="overflow:hidden" href="{{event.url}}" target="_blank">{{ event.url }}</a></small></p>
+                                 {% endif %}
+
+    </div>
+    
+  </div>
+  <div class="modal-footer">
+  </div>
+</div>
+{% endfor %}
+{%- endmacro %}        
+
+
+{% block head %} {{ super () }}
+<style type="text/css">
+#central_wrapper{
+min-height:20px;padding:19px;margin-bottom:20px;background-color:#f5f5f5;border:1px solid #e3e3e3;-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,0.05);-moz-box-shadow:inset 0 1px 1px rgba(0,0,0,0.05);box-shadow:inset 0 1px 1px rgba(0,0,0,0.05);
+opacity: 0.9;
+  filter: alpha(opacity = 90);}
+#side_nav a{
+	height:30px;
+	display:block;
+	}
+#side_nav i{
+	float:right;
+	}
+#nav {
+	margin-top: 50px;
+}
+
+#slider {
+	height: 250px;
+	background-color: #404040;
+}
+
+#search {
+	border: 1px solid black;
+	height: 40px;
+}
+
+#navigation {
+	max-height: 30px;
+}
+
+#calendar {
+	height: 200px;
+}
+
+#myCarousel .item {
+	height: 248px;
+	/*width: 240px;*/
+	border: 1px solid black;
+	margin-bottom: 10px;
+}
+#myCarousel img{
+	width:100%;
+	height:80%;
+	}
+#myCarousel carousel-caption{
+	
+	height:20%;
+}
+
+#social-div {
+	overflow:scroll;
+}
+
+li {
+	display: inline;
+}
+
+
+#scrolling.fixed{
+  position: fixed;
+  top: 0px;
+  left: 316px;
+  width: 860px;
+  background-color: grey;
+  opacity: 0.9;
+  filter: alpha(opacity = 90);
+
+}
+#back-to-top{
+  position: fixed;
+  top: 85%;
+  left:97%;
+  display: none;
+}
+#foot{
+font-family: Helvetica, Arial, sans-serif;
+font-size: 11px;
+line-height: 20px;	
+color:grey;
+	}
+#sorter{
+	
+	margin-left:20px;
+	}
+
+#logout{
+  float: right;
+}
+.nav-list li{
+	display:block;
+	}
+
+#events .event-image{
+	width:100%; 
+	height:200px;
+}
+#events .attend-button{
+ float: right;
+}
+
+#events .block-of-3{
+	margin-bottom:10px;
+}
+
+
+select{
+	padding-bottom:0px;
+}
+.event-source{
+	margin-top:1%;
+	margin-left:2%;
+}
+
+#footer-desktop li{
+	margin-right:20px;
+	font-family: 'lucida grande', tahoma, verdana, arial, sans-serif;
+font-size: 12px;
+line-height: 20px;}
+.under
+{
+position:relative;
+left:-8px;
+top:2px;
+z-index:-1;
+}
+.over
+{
+position:relative;
+left:0px;
+top:2px;
+z-index:-1;
+}
+.community
+{
+	margin-left:-6px;
+}
+		
+@media (max-width: 770px){
+	  html {
+        font-size: 8px;
+    }
+	#central_wrapper{
+		
+		padding:1%;
+		width:100%;
+		}
+	 
+	.thumbnail {
+		width:97%;}
+	.eventname{
+		font-size:15px;
+		}
+	.event-organiser{
+		font-size:12px;
+		}
+	
+		.footer_mobile li{
+			margin-right:10px;}
+		.dropdown-menu{
+			float:left;}
+		#central_wrapper .well{
+			border:none;
+			padding:0px;
+			margin:0px;}
+			
+#events .event-image{
+	width:44%;  
+	float:left; 
+	margin-right:1px;
+	height:190px;
+	
+
+}
+#events .caption {
+	margin-top:-10px;
+	padding-left:1px;
+	margin-left:1px;
+	float:right;
+	width:50%;
+	height:auto;
+}
+#events .attend-button{
+ float: right;
+}
+#events li{
+	margin-bottom:10px;
+}
+#events .block-of-3{
+	margin-bottom:0;
+}
+#filter, #sorter select{
+	overflow:visible;
+}
+
+#slider {
+	height:auto;
+	
+}
+#myCarousel .item {
+	height:auto;
+	/*width: 240px;*/
+	border: 1px solid black;
+	font-size:11px;
+	
+}
+#myCarousel img{
+	
+	height:110px;
+	}
+#myCarousel carousel-caption{
+	overflow:scroll;
+	height:auto;
+	
+}
+#menu_block li{
+	padding:1%;
+}
+	}
+
+</style>
+
+{% endblock %}
+{% block title %}
+Eventbuck(Beta!)- ULaval vue en fun!
+{% endblock %}
+{% block facebook_script %}
+ <script type='text/javascript'>
+    top.location.href = 'http://www.eventbuck.com';
+ </script>
+ {{ super }}
+{% endblock %}
+{% block content %}
+
+<div id="main_wrapper" class="row-fluid">
+	<div id="nav" class="span12">
+
+
+		<div class="row-fluid">
+
+			<div class="span3 well hidden-phone transparent" id="left-bar">
+            {% block left_bar %}
+				<div class="clearfix well" id="sign_in">
+             
+					Etudiant à l'université Laval?
+					<hr>
+          <center><a href="{{url_for_signin}}" role="button" class="btn btn-primary">Se connecter/S'enregistrer</a></center>
+			
+				</div>
+                {% block social_div %}
+				<div class="clearfix well" id="social-div">
+                
+                <div class="fb-like" data-href="https://www.facebook.com/eventbuck" data-width="200" data-show-faces="true" data-send="false"></div>
+                <div class="fb-send" data-href="http://www.eventbuck.com" height="30px"></div>
+                </div>
+
+
+				<div class="clearfix well text-center"><a href="https://www.facebook.com/eventbuck"><img src="/static/img/facebook.png" alt=""></a>
+				<a href="https://www.twitter.com/eventbuck"><img src="/static/img/twitter.png" alt=""></a>
+				<a href="#"><img src="/static/img/gplus.png" alt=""></a></div>
+                <ul class="text-center">
+						<li class="{{ active|check_active("about")}}" style="padding:2%;"><a
+							href="{{url_for_about}}">À propos</a></li>
+						<li class="{{ active|check_active("contact")}}" style="padding:3%;"><a
+							href="{{url_for_contact}}">Contact</a></li>
+                    </ul>
+                    <center><span id="foot">&copy; 2013, EventBuck. All Rights Reserved.</span></center>
+                {% endblock %}
+				
+
+            {% endblock %}
+			</div>
+			<div class="span9 transparent" id="central_wrapper">
+			{% block central_container %}
+                
+                
+                {% block main_central_container %}
+				<div class="clearfix">
+				  
+				  {% block subnav %}
+                  
+				  <div class="navbar navbar-inverse hidden-phone">
+                    <div class="navbar-inner">
+                    <button type="button" class="btn btn-navbar" data-toggle="collapse"
+                    data-target=".nav-collapse">
+                    <span class="icon-bar"></span> <span class="icon-bar"></span> <span
+                        class="icon-bar"></span>
+                    </button>
+                    <div id="scrolling2" class="nav-collapse collapse">
+                      <ul class="nav nav-left-txt">
+                        
+                        <li class="{{active_submenu|check_active('party')}}" ><a href="{{url_for_partys}}">Partys</a></li>
+                        <li class="divider-vertical"></li>
+                        <li class="{{active_submenu|check_active('academic')}}"><a href="{{url_for_academic}}">Académiques</a></li>
+                        <li class="divider-vertical"></li>
+                        
+                        <li class="{{active_submenu|check_active('sport')}}"><a href="{{url_for_sports}}">Sports</a></li>
+                        <li class="divider-vertical"></li>
+                        <li class="{{active_submenu|check_active('other')}}"><a href="{{url_for_others}}">Divers</a></li>
+                        <li class="divider-vertical"></li>
+                        <li class="{{active_submenu|check_active('all')}}"><a href="/all">Tous</a></li>
+                        <li class="divider-vertical"></li>
+                      </ul>
+                     
+                      </div>
+                     </div>
+                   </div>
+                  {% endblock %}
+                  
+                   {% block filter_and_sorter %}
+                   <!--Desktop Filter-->
+                   <div class="row-fluid">
+                     <ul class="nav nav-pills pull-right">
+                       <li>
+                       <a>
+                         <label for="filter">
+                          <span style="line-height:20px; color:grey; font-weight:bold;">Afficher:</span>             
+                          <select id="filter" data-target="#events" style="margin-left:3px; margin-top:5px;height:20px; font-size:12px; width:160px;" name="sortby">
+
+                         <option value="all" selected>Tous les events</option>
+                         <option value="today">Ayant lieu aujourd'hui </option>
+                         <option value="tomorrow">Ayant lieu demain </option>
+                         <option value="week">Ayant lieu cette semaine </option>
+                         <option value="month">Ayant lieu ce mois </option>
+                         <option value="date" class="custom-date">Choisir une date particulière</option>         
+                        </select>
+                        </label>
+                        </a>
+
+                       <li><input type="text" id="custom-date" name="custom-date" style="width:87px; display:none; margin-top:10px;" class="custom-date"/></li>
+
+                       
+                       <li class="sorter">
+                         <a><label for="sorter">
+                       <span style="line-height:20px; color:grey; font-weight:bold;">Trier par:</span>             
+                       <select id="sorter" data-target="#events" style="margin-left:3px; margin-top:5px; height:20px; font-size:12px; width:160px;" name="sortby">
+                         <option value="date_event" selected>Plus proche en premier </option>
+                         <option value="date_published">Récemment ajoutés </option>           
+                        </select>
+                        </label>
+                        </a>
+                       </li>
+                       
+                     </ul>
+               </div>
+               <!-- End of Desktop Filter-->
+               
+               <!--Mobile  Filter-->
+            
+               <!--End of Mobile filter-->
+               
+               {% endblock %}
+               
+               {% if not user %}
+               <div class="row-fluid">
+               <div class=" alert alert-info">
+               <button type="button" class="close" data-dismiss="alert">&times;</button>
+               <strong>Vous ne pouvez voir que les pages d'events publiés par les associations. Pour voir celles des events publiés par d'autres étudiants, <a href="{{url_for_signin}}"> connectez-vous </a></strong>
+               </div>
+               </div>
+               {% endif %}      
+                   
+               {% block event_container %}
+                    
+                  {{ event_container(events) }}
+               {% endblock %}            
+        </div>
+        
+        {% endblock %}
+        
+            {% endblock %}
+            {% block footmobile%}
+            <div class="row-fluid transparent visible-phone">
+
+			<div class="well" id="left-bar">
+      
+                    <div class="clearfix well"><center><a href="https://www.facebook.com/eventbuck"><img src="/static/img/facebook.png" alt=""></a>
+                    <a href="https://www.twitter.com/eventbuck"><img src="/static/img/twitter.png" alt=""></a>
+                    <a href="#"><img src="/static/img/gplus.png" alt=""></a></center></div>
+                    <center><ul id="footer_mobile">
+                    	<li class="{{active|check_active("home")}}"><a
+							href="{{url_for_home}}">Accueil</a></li>
+						<li class="{{ active|check_active("about")}}"><a
+							href="{{url_for_about}}">A propos</a></li>
+						<li class="{{ active|check_active("contact")}}"><a
+							href="{{url_for_contact}}">Contact</a></li>
+                    </ul></center>
+                    <center><span id="foot">&copy; 2013, EventBuck. All Rights Reserved.</span></center>
+                </div>
+               </div>
+               {% endblock %}
+             </div>
+
+		</div>
+
+	</div>
+</div>
+<!--Menu block when logged out-->
+ <button id="back-to-top" class="btn btn-primary hidden-phone"><i class="icon-chevron-up icon-white"></i></button>
+ <div class="row-fluid well" id="menu_block">
+            	<ul class="nav nav-left-txt">
+                	<li class="{{left_sidebar|check_active("home")}}" title="Accueil"><a href="{{url_for_home}}"><i class="icon-home"> </i> Accueil</a></li>
+                <li class="header">
+                	Categories
+                </li>
+                <li class="{{active_submenu|check_active('party')}}" ><a href="{{url_for_partys}}"><i class=" icon-glass"></i> Partys</a></li>
+                        <li class="divider-vertical"></li>
+                        <li class="{{active_submenu|check_active('academic')}}"><a href="{{url_for_academic}}"><i class="icon-book"></i>   Académiques</a></li>
+                        <li class="divider-vertical"></li>
+                        
+                        <li class="{{active_submenu|check_active('sport')}}"><a href="{{url_for_sports}}"><i class="icon-bullhorn"></i> Sports</a></li>
+                        <li class="divider-vertical"></li>
+                        <li class="{{active_submenu|check_active('other')}}"><a href="{{url_for_others}}"><i class=" icon-list-alt"></i> Divers</a></li>
+                        <li class="divider-vertical"></li>
+                        <li class="{{active_submenu|check_active('all')}}"><a href="/all"> <i class=" icon-th-large"></i> Tous</a></li>
+                        <li class="divider-vertical"></li>
+                 <li class="header">EventBuck</li>
+                 <li class="{{ active|check_active("community")}}"><a
+							href="/community"><i class="icon-user over"></i><i class="icon-user under"></i><span class="community">Communauté</span></a></li> 
+                 <li class="{{ active|check_active("about")}}"><a
+							href="{{url_for_about}}"><i class=" icon-info-sign"></i> A propos</a></li>
+						<li class="{{ active|check_active("contact")}}"><a
+							href="{{url_for_contact}}"><i class="icon-envelope"></i> Contact</a></li>
+                        <li><a href="/terms"><i class="icon-list"></i> Conditions d'utilisation</a></li>
+                 </ul>
+            </div>
+{% block event_modals %}
+<div id="all-modals">
+{{ event_modals(events) }}
+</div>
+
+{% endblock %}
+
+
+{% endblock %}
+
+
+{% block script %}
+{{ super() }}
+{% block market_script %}
+
+
+<script>
+var market = new Market({{j_user|safe}});
+</script>
+{% block load_more %}
+<script>
+$(document).ready(function(e) {
+    
+   $(window).scroll(function(){
+        if  ($(window).scrollTop() == $(document).height() - $(window).height()){
+           market.load_more_events();
+        }
+	
+});
+});
+</script>
+{% endblock %}
+<script>
+$(document).ready(function(e) {
+	
+	market.add_sorter("#sorter");
+    market.add_filter("#filter");
+   
+if ($(window).width() > 768){
+	
+$('.event-info-link').each(function() {
+	var modal_div = $(this).data('href');
+	$(this).attr('href', modal_div);
+	var image = this.getElementsByTagName('img')[0].cloneNode(true);
+	$(modal_div+'Image').append(image);
+	
+});
+
+}
+
+$(document).on({
+	mouseenter: function(e){
+	$(this).removeClass('btn-success').addClass('btn-danger').html('<span> Se désabonner </span>')},
+	mouseleave: function(e){$(this).removeClass('btn-danger').addClass('btn-success').html('<span><i class="icon-ok-sign" ></i> Abonné </span>')}
+	
+	}, '.btn-unsubscribe');
+	
+});
+</script>
+<script>
+
+function invite(){
+FB.ui({
+
+method: 'apprequests',
+message: 'Eventbuck est un site permettant aux étudiants de créer et se tenir informés sur les différentes activités prenant place sur le campus ou à l\'extérieur'
+
+});
+}
+</script>
+{% endblock %}
+{% endblock %}

@@ -1,0 +1,301 @@
+@charset "utf-8";
+/* CSS Document */
+<style type="text/css">
+* html #mainNav a { width: 1px; }
+
+html, body, h1, h2, h3, h4, h5, h6, p, ol, ul, li, pre, code, address, variable, form, fieldset, blockquote {
+ padding: 0;
+ margin: 0;
+ font-size: 100%;
+ font-weight: normal;
+}
+a:link{
+	color:#006699;
+	text-decoration:none;
+	}
+a:visited{
+	color:#006699;
+	text-decoration:none;
+	}
+a:hover{
+	text-decoration:underline;
+	}
+
+/*Reset ends here*/
+input, button{
+	border: 3px solid #cccccc;
+	font-family: Tahoma, sans-serif;
+	}
+button{
+	cursor:pointer;
+	}
+body{
+	min-width:980px;
+	background-color:rgb(4,126,191);
+}
+/*To reset all the tags*/
+/*This the style definition for the header*/
+
+#header{
+	
+ font-size:40px;
+ font-family:Arial, Helvetica, sans-serif;
+ letter-spacing: 1px;;
+ background:url(../images/bg_banner.jpg)  no-repeat;
+ padding-bottom:5px;
+ text-align:center;
+
+}
+
+#header h1 strong{
+	
+font-size: 100px;
+color: white;
+line-height: 1em;
+margin-right: -6.5em;
+}
+
+#header h1 .frog{
+
+font-size:24px;
+font-weight: bold;
+color: #002D4B;
+}
+
+/*Style for the main body*/
+
+
+
+/*Here are style definitions for the sidebars*/
+
+
+#navigation{
+float:left;
+width:150px;
+margin-top:0px;
+margin-bottom:0px;
+margin-left:-812px;
+font-weight:bold;
+font-size:20px;
+font-family:"Palatino Linotype", "Book Antiqua", Palatino, serif;
+color:#FFFFFF;
+padding-left:2px;
+padding-right:2px;
+/*background-color:#CCCCCC;*/
+}
+#navigation li{
+	font-size:15px;
+	text-decoration: none;
+	display: block;
+	padding: 5px;
+	border-bottom: 1px dashed #294E56;
+	color: #73AFB7;
+	line-height: 110%;
+	background: #FFFFFF url(../images/bg_link.png) no-repeat right top;
+}
+
+#navigation li:hover{
+		color: #000000;
+	background-image: url(../images/bg_link_h.png);
+}
+p.hiden{display:none; font-weight:bold; font-size: 18px;}
+li a{ display:block;
+text-decoration:none;}
+li a:hover{
+	text-decoration:none;}
+.navig{list-style:none}
+.rzone{ list-style:circle; list-style-position:inside; font-size:12px;}
+#newsfeed{
+	/*border-bottom:solid 1px  #FFFFFF;
+	border-right:solid 1px #FFFFFF;*/
+	width: 170px;
+	float: right;
+	background-color: #D9ECFF;
+	margin-top:64px;
+}
+
+#newsfeed h2 {
+	font-size: 1.3em;
+	color: #FFFFFF;
+	padding: 7px 8px 0 8px;
+	margin-bottom: 5px;
+	border-top: 3px solid #86B500;
+	background: url(../images/home/bg_side_head.png) repeat-x left bottom;
+}
+#newsfeed p {
+	margin-right: 5px;
+	margin-bottom: 10px;
+	margin-left: 5px;
+	color: #666666;
+}
+#newsfeed h3 {
+	font-size: 1.1em;
+	margin-right: 5px;
+	margin-left: 5px;
+	color: #663900;
+	margin-bottom: 3px;
+}
+#newsfeed h3 a {
+	color: #663900;
+}
+
+#newsfeed a:hover {
+	color: #CA1D07;
+}
+
+td.space{width:100px;
+text-align:right;}
+td.space2{width:240px;}
+table.log{height:68px;}
+
+
+
+/*Style for the Wrapper*/
+
+#wrapper1{
+	width:980px;
+	margin-left:auto;
+	margin-right:auto;
+	background: url(../images/home/wrapper.png) right top repeat-y rgb(255,255,255);
+	overflow:hidden;
+}
+#wrapper2{
+	width:980px;
+	margin-left:auto;
+	margin-right:auto;
+	background: url(../images/bg_column.gif) left top repeat-y;
+	overflow:hidden;
+}
+#main{
+	float:left;
+	margin-left:150px;
+	padding-top:150px;
+	width:655px;
+	background:url(../images/home/main.jpg) top no-repeat rgb(255,255,255) ;
+	padding-left:3px;
+	padding-right:2px;
+}
+#navigation p{
+	padding-top:10px;
+	padding-bottom:10px;
+	padding-left:2px;
+
+	padding-right:2px;
+	text-align:center;
+	
+}
+#footer{
+clear: both;
+border-top: 1px dashed #999999;
+font-weight: bold;
+color: #666666;
+text-align:center;
+background-color:#FFFFFF;
+width:inherit;
+
+}
+
+/* NAV BAR */
+
+#mainNav ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	background:url(../images/home/bg_nav.png) repeat-x left top;
+	float: left;
+	border-bottom: 1px solid #000;
+	width: 100%;
+}
+
+#mainNav li {
+	float: left;
+	padding: 0;
+	margin: 0;
+	font-size:15px;
+}
+#mainNav li.logout{
+	width:170px;
+	float:right;
+	text-align:center;
+	border-left:solid 2px #333333;
+}
+#searchbox
+{
+	margin-left:60px;
+	margin-top:5px;
+width:250px;
+border:solid 1px #000;
+padding:3px;
+}
+
+
+#mainNav li a, #mainNav li a:link {
+	color: #FFFFFF;
+	text-decoration: none;
+	padding: .5em 1em;
+	border-right: 1px solid #000;
+	display: block;
+	font: bold 1em "Lucida Grande", Verdana, Geneva, Lucida, Arial, Helvetica, sans-serif;
+}
+
+#mainNav li a:hover {
+	background:url(../images/home/bg_nav_h.png);
+}
+
+/* IE 6 hack to make entire button clickable */
+/*This the style definition for the header*/
+
+#header{
+	
+ font-size:40px;
+ font-family:Arial, Helvetica, sans-serif;
+ letter-spacing: 1px;;
+ background:url(../images/bg_banner.jpg)  no-repeat;
+ padding-bottom:5px;
+ text-align:center;
+
+}
+li a{
+	text-decoration:none;}
+}
+
+input.invalid{ background-color:#FF9;
+				border:2px red inset;}
+.user_name{
+	font-weight:bold;
+	font-size:12px;
+	font-family:Arial
+	}
+li.user a:hover{
+	text-decoration:underline;}
+	
+#search{
+	position:absolute;
+	width:387px;
+	height:auto;
+	top:138px;
+	display:none;
+	}
+	#container2{
+		width:400px;
+		margin-left:423px;
+		bor}
+.searchResult
+{
+	min-height:20px;
+	padding-left:10px;
+	font-size:14px;
+	font-weight:bold;
+	border-bottom:solid 1px #000000;
+	border-left:solid 1px #000000;
+	border-right:solid 1px #000000;
+	background-color: rgb(255,255,255);}
+.searchResult a{
+	display:block;
+	text-decoration:none;
+	}
+.searchResult:hover{
+	background-color:rgb(204,204,204);
+	}
+</style>
+

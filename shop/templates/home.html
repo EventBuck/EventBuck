@@ -1,0 +1,140 @@
+{% extends "base.html" %} 
+{% block title %} Home {% endblock %} 
+{% block head %}
+{{super()}}
+
+<style>
+a.more_records {
+    background: #3D9400;
+border: 1px solid #29691D;
+color: white;
+	text-align:left;
+	width:100%;
+	padding: 8px;
+	display:block
+
+}
+#tips{
+	float: right;
+}
+#content{
+	margin-bottom: 10px;
+}
+</style>
+{% endblock %}
+{% block content %}
+<header class="jumbotron subhead">
+<div class="row">
+    <div class="span2 pull-left">
+        <div id="profile-picture"class="thumbnail" style="width:96px; height: 96px;"><img src="{{profile_picture}}" style="width:96px; height: 96px;"/></div>
+       <form>
+     <div class="fileupload fileupload-new" data-provides="fileupload">
+  <span class="act btn-file"><span class="fileupload-new">Changer votre logo</span><span class="fileupload-exists">Changer votre logo</span><input type="file" name="img" id="upload-field" onChange="fileUpload(this.form,'{{url_for_profile_picture}}','profile-picture'); return false;"/></span>
+</div>  
+      </form> 
+    </div>
+    
+	<div class="span8 well" id="lead1" >
+      
+		<h1>Votre Tableau de bord</h1>
+      
+	</div> <!-- End of lead1 -->
+    
+    </div>
+	
+    </header>
+    <hr>
+<div class="row-fluid">
+	<div class="span3 make-border" id="leftside" style="padding-right:10px;">
+
+		<ul class="nav nav-list">
+			{% block left_side_bar %}
+			<li class="{{sidebar_active|check_active('newsfeed')}}"><a
+				href="{{url_for_index}}">Activité Recente</a></li>
+			<li class="divider"></li>
+			<li class="{{sidebar_active|check_active('createEvent')}}"><a
+				href="{{url_for_createEvent}}">Créer Évenement</a></li>
+			<li class="divider"></li>
+
+			<li class="{{sidebar_active|check_active('allEvent')}}"><a
+				href="{{url_for_showEvent}}">Tous les événements</a></li>
+		</ul>
+		{% endblock %}
+	</div>
+	<div class="span9 make-border" id="content" style="margin-left:-1px; border-left:1px solid #e3e3e3; padding-left:20px;" ><button class="btn btn-info" id="tips">Click here for Tips</button>{% block central_content %} 
+    		{% if sidebar_active == "newsfeed" %}
+	        		<h3 class="text-center">Your Latest Activity<hr></h3>
+	        		<div id="activities_list">
+			        
+			        {% if no_activities %}
+			        <span> No recent Activity to be shown </span>
+			        {% else %}
+			         
+			         {% for activity in activities_info.activities %}
+			         <span style="margin-right:10px">{{activity[0]}} </span>
+			         <span> {{ activity[1] }} </span><br/>
+			         <hr/>
+			         
+			         {% endfor %}
+			         
+			         </div><!-- End Of activities_list -->
+	         
+	         {% if activities_info.more %}
+	             <div id="bottomMoreButton" >
+	                <a class="more_records text-centered" name="2" onClick="load_more_activities({{activities_info.cursor}})" href="#"><center>Plus d'activités ... </center></span></a>
+				</div>
+	         {% endif %}
+	         
+	         {% endif %}
+	         {% endif %}
+	    	{%endblock %}
+		</div>
+	</div>
+
+</div>
+</div>
+{% endblock %}
+
+{% block script %}
+{{ super() }}
+<script
+				src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKPN5qka9jShG3qVES90Hg7lzChb3CYUw&v=3.exp&sensor=false&libraries=places"></script>
+<script src="/shop/static/js/shop.js"></script>
+
+{% if sidebar_active=="newsfeed"  and not no_activities %}
+<script type="text/javascript">
+
+function load_more_activities(cursor){
+	$.ajax({
+		type:"GET",
+		url:"{{activities_info.url_to_load_more}}",
+		dataType:"json",
+		async: false,
+		data: {'cursor':cursor},
+		success: function(data){
+			if (!data.activities_info.more){
+			    document.getElementById('bottomMoreButton').style.display="none";
+				
+			}
+			
+			var results = data.activities_info.activities
+			var html = "";
+			for(var i=0; i<results.length; i++){
+			
+			html += '<span style="margin-right:10px">' + results[i][0] + '</span><span>' + results[i][1] + '</span><br/><hr/>' ;				
+			}
+		    
+			$('#activities_list').append(html);
+		},
+		error: function(request, error){
+			        alert(error.description);
+			  }
+		
+		
+	})
+		
+	
+}
+</script>
+{% endif %}
+{% endblock %}

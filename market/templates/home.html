@@ -1,0 +1,156 @@
+{% extends "index.html" %}
+
+{% macro left_navigation() -%}
+                 <li class="{{left_sidebar|check_active("home")}}" title="Accueil"><a href="{{url_for_home}}"><i class="icon-home"> </i> Accueil</a></li>
+                 <li class="{% if user == target %}active{% endif %}" title="Profil"><a href="/{{user.key.id()}}"><i class="icon-user"> </i> Mon Profil</a></li>
+                 {% if user.type == "student" %}
+                  <li class="{{left_sidebar|check_active("attending")}}" title="Les events auxquels vous êtes inscrit"><a href="{{url_for_attending_events}}" class="my_events"><i class="icon-star-empty"> </i> À Participer (<span style="color:#F00">{{avenir_number}}</span>)</a></li>
+                  {% endif %}
+                  <li class="{{left_sidebar|check_active("subscription")}}" title="Les events organisés par les personnes/organisations auxquelles vous êtes abonné"><a href="/subscription"><i class=" icon-globe"> </i> Par Abonnements (<span style="color:#F00">{{event_from_following}}</span>)</a></li>
+                  {% if events_to_review %}
+                  <li class="{{left_sidebar|check_active("reviewing")}}" title="Donnez votre avis sur les events auquels vous avez participés récemment"><a href="/reviewing"><i class="icon-star"> </i> C'était comment? (<span style="color:#F00">{{events_to_review}}</span>)</a></li>
+                  {% endif %}
+                  <li class="{{left_sidebar|check_active("my_events")}}" title="Les events que vous organisez"><a href="{{url_for_user_events}}" class="my_events"><i class="icon-folder-close"> </i> Mes events</a></li>
+                  <!-- <li><a href="#"><i class="icon-heart"></i> Mes Préférences</a></li> -->
+                  {%- endmacro %}
+
+
+
+
+{% block title %}
+{{ user.firstname }}{% if not user.type == "student" %} {{user.name}}{% endif %} - Home
+{% endblock %}
+
+
+{% block navbar %}{{ super() }}
+        
+		{% block img_menu%}
+        <a id="img"><img class="hidden-desktop"  src="/shop/static/img/menu.png"/></a>
+        {% endblock%}
+       {% block img%}
+    
+           <li class="dropdown visible-phone pull-right">
+                        <a href="#" role="button"
+
+							class="dropdown-toggle img_profile" data-toggle="dropdown" onclick="return false;"><img class="visible-phone " src="{{profile_picture}}" style="width:45px; height: 45px;" alt="{{user.name}}"/>
+
+							
+						</a>
+                        
+							<ul class="dropdown-menu" role="menu" style=" font-size:12px; position:absolute; top:43px; left:-140px;">
+								<li role="presentation"><a role="menuitem" tabindex="-1"
+									href="/edit"> Modifier profil </a></li>
+                                <li class="divider"></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-2"
+									href="/edit/notifications"> Paramètres des notifications </a></li>
+                                <li class="divider"></li>
+								<li role="presentation"><a role="menuitem" tabindex="-3"
+									href="{{url_for_logout}}"> Déconnexion </a></li>
+							</ul>
+                            </li> 
+                         
+        {% endblock %}
+         {% block menu_block%}
+         <div class="row-fluid well" id="menu_block">
+            	<ul class="nav nav-left-txt">
+                {{ left_navigation() }}
+                <li class="header">
+                	Categories
+                </li>
+                <li class="{{active_submenu|check_active('party')}}" ><a href="{{url_for_partys}}"><i class=" icon-glass"></i> Partys</a></li>
+                        <li class="divider-vertical"></li>
+                        <li class="{{active_submenu|check_active('academic')}}"><a href="{{url_for_academic}}"><i class="icon-book"></i>   Académiques</a></li>
+                        <li class="divider-vertical"></li>
+                        
+                        <li class="{{active_submenu|check_active('sport')}}"><a href="{{url_for_sports}}"><i class="icon-bullhorn"></i> Sports</a></li>
+                        <li class="divider-vertical"></li>
+                        <li class="{{active_submenu|check_active('other')}}"><a href="{{url_for_others}}"><i class=" icon-list-alt"></i> Divers</a></li>
+                        <li class="divider-vertical"></li>
+                        <li class="{{active_submenu|check_active('all')}}"><a href="/all"> <i class=" icon-th-large"></i> Tous</a></li>
+                        <li class="divider-vertical"></li>
+                 <li class="header">EventBuck</li>
+                 <li class="{{ active|check_active("community")}}"><a
+							href="/community"><i class="icon-user over"></i><i class="icon-user under"></i><span class="community">Communauté</span></a></li> 
+                 <li class="{{ active|check_active("about")}}"><a
+							href="{{url_for_about}}"><i class=" icon-info-sign"></i> A propos</a></li>
+						<li class="{{ active|check_active("contact")}}"><a
+							href="{{url_for_contact}}"><i class="icon-envelope"></i> Contact</a></li>
+                        <li><a href="/terms"><i class="icon-list"></i> Conditions d'utilisation</a></li>
+                 </ul>
+            </div>
+         {% endblock %}
+<ul class="nav pull-right hidden-phone" id="logout">
+<ul class="nav pull-right">
+						<li class="dropdown">
+                        <a href="#" role="button"
+							class="dropdown-toggle" data-toggle="dropdown">{{user.firstname}}{% if not user.type == "student" %} {{user.name}}{% endif %}<i class="icon-cog"></i>
+							
+						</a>
+							<ul id="logout" class="dropdown-menu" role="menu">
+								<li role="presentation"><a role="menuitem" tabindex="-1"
+									href="/edit"> Modifier profil </a></li>
+								<li class="divider"></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-2"
+									href="/edit/notifications"> Paramètres des notifications </a></li>
+                                <li class="divider"></li>
+								<li role="presentation"><a classrole="menuitem" tabindex="-3"
+									href="{{url_for_logout}}"> Déconnexion </a></li>
+							</ul></li>
+					</ul>
+                    
+{% endblock %}
+{% block submenu%}
+{{super()}}
+{%endblock%}
+
+{% block left_bar %}
+<div class="row-fluid">
+    <div class="pull-left" style="margin-right:3%;width:40%; height: 70px; margin-bottom:11%;">
+        <div id="profile-picture" data-role="profile-picture" class="thumbnail" ><img src="{{profile_picture}}" style="width:100%; height: 100%;" alt="{{user.name}}"/></div>
+               
+        </div>
+        <div class="pull-left" style="width:55%;">
+        <span><a href="/{{user.key.id()}}" id="user-name">{{user.firstname}} {{user.name}}</a></span>
+        	
+        </div>
+    </div>
+    
+    <div class="row-fluid">
+            <div class="span12 well">
+                <ul class="nav nav-list bs-docs-sidenav" id="side_nav">
+                 {{ left_navigation() }}
+                  
+                </ul>
+            </div>
+            
+        </div>
+        {% block social_div %}
+        
+            {{ super() }}
+        {% endblock %}
+{% endblock %}
+
+{% block central_container %}
+
+{% block pub %}
+
+{% endblock %}
+
+<div class="well">
+
+    {% block subnav %}
+    {{super()}}
+    
+    {% endblock %}
+    
+    {% block filter_and_sorter %}
+       {{ super() }}
+    {% endblock %}
+    
+    {% block main_central_container %}
+      {% block event_container %}
+       {{ super() }}
+       {% endblock %}
+    {% endblock %}
+ </div>
+{% endblock %}

@@ -1,0 +1,63 @@
+application: ojo-ticket
+version: test
+runtime: python27
+api_version: 1
+threadsafe: true
+
+inbound_services:
+- warmup
+builtins:
+- appstats: on
+- deferred: on
+
+handlers:
+- url: /shop/static/img
+  static_dir: shop/static/img
+  expiration: 1d
+- url: /static/img
+  static_dir: static/img
+  expiration: 1d
+- url: /shop/static
+  static_dir: shop/static
+- url: /market/static
+  static_dir: market/static
+- url: /static
+  static_dir: static
+
+- url: /newTemplate
+  static_dir: market/newTemplate/statics
+
+
+- url: /admin/.*
+  script: main.app
+  login: admin
+- url: /admin
+  script: main.app
+  login: admin
+
+- url: /.*
+  script: main.app
+
+- url: /stats.*
+  script: google.appengine.ext.appstats.ui.app
+
+libraries:
+- name: jinja2
+  version: latest
+- name: django
+  version: latest
+- name: webapp2
+  version: "2.5.2"
+
+skip_files: 
+- ^(.*/)?\.hg.*
+
+automatic_scaling:
+  max_idle_instances: 20
+  min_pending_latency: 4.0s
+
+
+error_handlers:
+  - error_code: over_quota
+    file: market/templates/maintainance.html
+

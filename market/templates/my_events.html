@@ -1,0 +1,242 @@
+{% extends "home.html" %}
+
+{% block title %} {% if showingAllEvents %} Tous tes evenements {% else
+%}{{event.name}}{% endif %} {% endblock %}
+{% block head %} {{ super () }}
+<style>
+#event-info{
+	width:100%;
+}
+@media (max-width: 480px){
+	#central-container{
+		width:100%;
+		margin-left:0px;
+		padding-left:0px;}
+	#eventList h2{
+		font-size:15px;}
+			
+}
+</style>
+{% endblock%}
+<!-- Fin bloc titre -->
+
+
+
+
+
+{% block central_container %}
+{% if not showingAllEvents %}
+ <style>
+ body{
+	 background-image:url('{{event.image}}');
+	 background-repeat:repeat;
+	
+	 background-size: 25%;
+ }
+ </style>
+{% endif %}
+<div id="central-container" class="well" style="min-height:380px;">
+<!-- Dans le cas ou c'est la liste des evenements à afficher -->
+{% if showingAllEvents %}
+<a class="btn btn-primary pull-right" href="{{url_for_create_event}}">Créer un nouvel event</a><br>
+
+<ul id="eventList">
+	<h2>Liste des événements</h2>
+	<hr>
+	{% if not events %}
+	<p class="text-center" style="margin-top:150px; font-size:18px;">Oups, Il semble que vous n'avez pas d'events prévus. <a href="{{url_for_create_event}}"> Créez en un maintenant</a></p>
+</ul>
+{% else %} 
+<table class="table table-hover" style="font-weight:bolder;">
+<tr>
+  <th>Nom</th>
+  <th>Jour J</th>
+</tr>
+{% for event in events %}
+<tr>
+	<td><a href="{{url_for_showEvent}}?event_id={{event.id}}"> {{ event.name}} </a></td>
+	<td> {{ event.date_event|datetime }}<a href="#" onClick="delete_event('/shop/rpc/deleteEvent/{{event.id}}')"><i  style="float:right;" id="rmv"class="icon-remove"></i></a></td>
+</tr>
+{% endfor %}
+</table>
+
+</ul>
+{% endif %}
+
+<!-- Fin du cas de la liste des evenements à afficher -->
+
+<!-- Debut du cas ou c'est un evenement particulier à afficher -->
+{% else %}
+
+
+
+
+
+
+
+<div id="event" class="row-fluid" >
+
+  <div id="event-info">
+	<h3>
+		{{event.name}} <small> Créé le
+			{{event.date_created|datetime}}</small>
+            
+            
+	</h3>
+    {% if event.published %}
+    <a href="/{{user.key.id()}}/{{event.id}}?view_as=all"> -> Voir comme tout le monde</a>
+    
+    {% endif %}
+    
+    <dl class="dl-horizontal" style="overflow:hidden;">
+    <dt> C'est quoi? </dt>
+    <dd>{{ event.description }}</dd><br/>
+	
+	<dt> Où? </dt>
+    <dd>
+	<address>
+		<strong>{{ event.venue_name }}</strong><br> {{
+		event.venue_addresse }}
+	</address>
+    </dd>
+    <dt> Quand? </dt>
+    <dd> {{ event.date_event|datetime}}</dd>
+    </dl>
+	</div>
+	<hr>
+	<table id="tickets" class="table table-bordered" {% if tickets==None or event.type == 'free'
+		%} style="display: None"{% endif %}>
+		<thead>
+			<tr>
+				<th>Catégorie</th>
+				<th>Section</th>
+				<th>Rangée</th>
+				<th>Quantité</th>
+				<th>Prix</th>
+				<th>Début de Vente</th>
+				<th>Fin de Vente</th>
+				<th></th>
+			</tr>
+		</thead>
+		{% if tickets %} {% for ticket in tickets %}
+    
+		<tr>
+			<td>{{ticket[0].category}}</td> {% if ticket[0].category == "general" %}
+			<td>N/A</td>
+			<td>N/A</td> {% else %}
+
+			<td>{{ ticket[0].section }}</td>
+			<td>{{ ticket[0].row }}</td> {% endif %}
+			<td>{{ ticket[0].quantity }}</td>
+			<td>{{ ticket[0].price }}$</td>
+			<td>{{ ticket[0].sell_start|datetime(format_type="medium")}}</td>
+
+			<td>{{ ticket[0].sell_end|datetime (format_type="medium")}}</td>
+			<td><a href="{{ticket[1]}}" class="btn btn-small btn-secondary edit-ticket-btn">edit</a></td>
+		</tr>{% endfor %} {% endif %}
+	</table>
+    <div class="alert alert-success fade in clearfix publish-success" style="display:none;">
+  <h4>Wow Congrats!</h4>
+  Votre event vient d'être posté.Notre équipe l'analyse en ce moment. L'analyse peut prendre au maximum 30 minutes!
+</div>
+    <div class="alert alert-error alert-block publish-error fade in" style="display:none;">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <div>
+  <h4>Oups! Il y a eu un pépin!</h4>
+  Quelque chose n'a pas bien marché, Vérifiez que tout est correct et republiez. Si ça ne marche pas toujours, tenez-nous au courant et tout sera résolu!
+  </div>
+</div>
+	<br> <a href="{{url_for_editEvent}}"><button
+			class="btn  btn-primary" type="button">Modifier</button></a>
+    
+	<!--Button to toggle Modal -->
+    {% if event.type == 'paid' %}
+	<a href="#create-ticket-modal" role="button"
+		class="btn btn-primary" data-toggle="modal">
+        Ajouter des tickets
+            
+        </a>
+        {% endif %}
+    
+     
+        
+          
+          <a href="#"><button
+			class="btn  btn-primary" id="published-status" type="button" disabled {% if not event.published
+		%} style="display: None"{% endif %}>Publié <i class="icon-ok"> </i></button></a>
+          
+        <a href="#"><button
+			class="btn  btn-primary" type="button" data-loading-text="En cours..." data-complete-text="Published" onClick="publish_event('{{url_to_publish_event}}')" id="publish-button" {% if (tickets==None and event.type == 'paid') or event.published
+		%} style="display: None"{% endif %}>Publier</button></a>
+          
+         
+		<a id="dltbttn" href="#"><button type="button" class="btn btn-danger" onClick="delete_event('{{url_to_delete_event}}')"> Effacer évenément</button></a>
+
+
+	<!-- Modal -->
+
+	<div id="create-ticket-modal" class="modal hide fade" tabindex="-1"
+		role="dialog" aria-labelledby="create-ticket-modal-label"
+		aria-hidden="true">
+
+		
+	</div>
+    
+    <div id="edit-ticket-modal" class="modal hide fade" tabindex="-1"
+		role="dialog" aria-labelledby="edit-ticket-modal-label"
+		aria-hidden="true">
+
+		
+	</div>
+	<!-- End of Modal -->
+
+
+
+
+
+</div>
+<!-- Event of event Info -->
+
+
+<hr>
+<div class="row-fluid">
+	<div class="span6">
+		<div class="hero-unit">
+			<ul class="nav nav-list">
+				<li class="nav-header">Stats</li>
+				<li>Vues: <strong>{{event.stat.views}} fois </strong></li>
+                <li>Participants: <strong> {{event.stat.attendees}} </strong></li>
+			</ul>
+		</div>
+	</div>
+    {% if event.type == 'paid' %}
+	<div class="span6">
+		<div class="hero-unit" id="totsales">
+			<ul class="nav nav-list">
+				<li>Total Sales</li>
+				<li>Fees</li>
+				<li>Total Net Income</li>
+			</ul>
+		</div>
+	</div>
+</div>
+{% endif %}
+
+
+{% endif %}
+
+<!-- Fin du cas d'un evenement particulier -->
+
+</div>
+{% block event_modals %}
+{% endblock %}
+
+{% endblock %}
+
+{% block script %}
+{{ super () }}
+<script
+				src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKPN5qka9jShG3qVES90Hg7lzChb3CYUw&v=3.exp&sensor=false&libraries=places"></script>
+<script src="/shop/static/js/shop.js"></script>
+
+{% endblock %}

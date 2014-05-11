@@ -52,3 +52,10 @@ coverage.xml
 # Sphinx documentation
 docs/_build/
 
+# Eclipse
+.settings/
+
+
+# MAC_OS
+.DS_Store
+

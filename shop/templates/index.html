@@ -1,0 +1,149 @@
+{% extends "base1.html" %} {% block title %}Make, Sell Ojo-ticket for
+your events - Home {% endblock %} {% block content %} {{ super() }}
+<head>
+<link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<div class="row jumbotron masthead" style="margin-top: 170px">
+	<!--start caroussel
+   =========================================== -->
+	
+	<!-- End caroussel -->
+	<div id="caroussel-banner" class="span4">
+		<hgroup>
+			<h2>C'est parti!</h2>
+			<h4>Créer dès maintenant un événement avec nous, le
+				ticketage n'est plus votre casse-tête, c'est le notre.</h4>
+		</hgroup>
+		<div class="button black">
+			<a href="{{url_for_signin}}">Créer un événement</a>
+		</div>
+	</div>
+</div>
+
+
+
+<!--start holder-->
+
+<div class="holder_content">
+
+	<section class="group1">
+		<h3>Services</h3>
+		<p>Notre site offre divers services qui sont indispensables à
+			votre entreprise. Nous vous facilitons la tâcheen vendant vos
+			tickets en ligne sur notre site ou via nos applications mobiles en
+			plus de vous offrir une interface qui permet de verifier chaque
+			ticket d'un utilisateur.</p>
+
+		<article class="holder_gallery">
+			<a class="photo_hover2" href="#"><img
+				src="/shop/static/img/picture2.jpg" width="150" height="99"
+				alt="picture1" /></a>
+			<h2>Shop en ligne.</h2>
+			<p>Grâce à notre site, vous pourrez vendre des tickets pour vos
+				evenements en ligne. Grâce à notre programme de fidélité envers
+				les acheteurs très unique et notre intégration sociale très bien
+				réussie, nous assurons une visibilté enorme à vos evenements.</p>
+			<span class="readmore"><a href="#">En savoir plus..</a></span>
+		</article>
+
+		<article class="holder_gallery">
+			<a class="photo_hover2" href="#"><img
+				src="/shop/static/img/picture4.jpg" width="150" height="99"
+				alt="picture1" /></a>
+			<h2>Des lecteurs en champ proche</h2>
+			<p>Nous vous offrons des lecteurs en champ proche sécurisé pour
+				pouvoir vérifier la validité des tickets électroniques
+				présentés à l'entrée des vos événements. Des lecteurs déjà
+				programmé qu'il ne reste plus qu' à utiliser</p>
+			<span class="readmore"><a href="#">Read more..</a></span>
+		</article>
+
+		<article class="holder_gallery">
+			<a class="photo_hover2" href="#"><img
+				src="/shop/static/img/picture5.jpg" width="150" height="99"
+				alt="picture1" /></a>
+			<h2>Les tags nfc qui ramenent directement à vous.</h2>
+			<p>Nous rendons la publicité de vos événements encore plus
+				facile, en mettant à votre disposition des tags nfc que des
+				utilisateurs des téléphones intélligents pourront utiliser pour
+				facilement aller à l'achat des tickets pour vos événements.</p>
+			<span class="readmore"><a href="#">En savoir plus..</a></span>
+		</article>
+
+	</section>
+
+	<aside class="group4">
+		<form action="{{ url_for_signin}}" method="post" class="login">
+			<fieldset>
+				<legend> ENTREZ DANS VOTRE SHOP </legend>
+				<div class="row clearFix">
+					<label for="l_email">Email:</label> <input type="email"
+						name="email" tabindex="10" required />
+				</div>
+				<div class="row clearFix">
+					<label for="l_password">Password:</label> <input type="password"
+						name="password" tabindex="20" required />
+				</div>
+				<input type="submit" class="l_submit" value="connexion">
+			</fieldset>
+		</form>
+	</aside>
+
+	<aside class="group2">
+		<h3>Nouvelles</h3>
+
+		<article class="holder_news">
+			<h4>
+				Site web en construction. <span>23.03.2012</span>
+			</h4>
+			<p>La création du site commencée par Aristote Diasonama.
+		</article>
+		<a class="photo_hover2" href="#"><img
+			src="/shop/static/img/picture3.jpg" width="257" height="295"
+			alt="picture" /></a>
+	</aside>
+
+	<section class="group3">
+		<h3>A Propos de Nous</h3>
+		<a class="photo_hover2" href="#"><img
+			src="/shop/static/img/picture1.jpg" width="200" height="97"
+			alt="picture1" /></a>
+
+		<p>Nous sommes une organisation engagée à lister des tickets des
+			événements en ligne. En plus de cela nous offrons un type de ticket
+			unique à tous nos membres basé sur la technologie de communication
+			à champs proche. Ainsi grâce à ces tickets, nos utilisateurs
+			utilisateurs peuvent accéder à différents éléments à l'aide
+			d'un seul et même ticket.</p>
+		<p>
+			A vrai nous offrons tous pour vous projeter dans l'avenir avant votre
+			temps.<span class="readmore"> <a href="#">En savoir plus..</a></span>
+		</p>
+
+		<h3>Testimonials</h3>
+		<p>Pas de témoignage pour le moment.</p>
+
+
+
+	</section>
+
+</div>
+<!--end holder-->
+{% endblock %} {% block script %} {{ super() }}
+
+<script src="/static/js/slider.min.js"></script>
+<script>
+		$(function () {
+		
+		  // Slideshow 1
+		  $("#slider").responsiveSlides({
+		    maxwidth: 800,
+		    speed: 800
+		  });
+		
+		});
+		</script>
+{% endblock %}
+</body>
+</html>

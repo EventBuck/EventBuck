@@ -1,0 +1,87 @@
+{% extends "authenticate.html" %}
+
+
+{% block content %}
+<div id="facebook-landing-page">
+<h1 data-title="Bienvenue dans Eventbuck"> <a href="#"> Bienvenue dans Eventbuck </a> </h1>
+<div class="well text-center transparent">
+<div>
+<h4> <span class="fb-logged-in">{{first_name}}</span>, dernière étape: choisissez un nouveau mot de passe pour EventBuck et fournissez votre adresse ulaval!
+</h4>
+<small><i class="icon-warning-sign"> </i> Vous utiliserez ce mot de passe si vous voulez vous connectez avec votre adresse email(même que celle que vous utilisez pour Facebook)</small>
+</div>
+<div id="signup-error" class="alert alert-error" style="display:none;">
+            
+</div>
+<div>
+<form action="/signup/fb" method="post" id="facebook-signup-form">
+<div class="control-group" style="margin-bottom:4px;">
+                <div class="input-prepend"><span class="add-on"><i class="icon-lock"></i></span>
+                 <input type="hidden" name="access_token" id="access-token" value="" required>
+                 <input type="password" id="inputPassword"
+          placeholder="Nouveau mot de passe" name="password" value="" required  title="Votre mot de passe que vous pourrez utiliser avec votre email pour vous connecter à EventBuck">
+                 </div>
+          </div>
+
+<div class="control-group" style="margin-bottom:4px;">
+                <div class="input-prepend"><span class="add-on"><i class="icon-lock"></i></span>
+                 <input type="password" id="inputPassword"
+          placeholder="Confirmer votre mot de passe" name="confirm_password" value="" required>
+                 </div>
+          </div>
+<div class="control-group">
+                <div class="input-prepend">
+                <span class="add-on"><i class="icon-envelope"></i></span>
+                <input id="email" type="text" placeholder="Email ULaval (@ulaval.ca)" name="u_email" required title="L'adresse email de l'université Laval pour confirmer que vous êtes étudiant(e) (Ex: jean.bertrand.2@ulaval.ca)"><br/>
+                <a href="#" style="font-size:12px;">Ceci nous permettra d'éviter les intrus!!</a>
+              </div>
+                 </div>
+                 
+                 <div class="clearfix"><button class="btn btn-primary" type="submit"><i class="icon-chevron-right icon-white"></i>&nbsp;C'est parti!</button></div>
+                 <ul style="font-size:12px; margin-top:3%">
+                 <strong>En cliquant sur "S'enregistrer" Vous confirmez que:</strong>
+                 <li>Vous avez lu et accepté nos {{terms_link()}}</li>
+                 <li>Vous êtes étudiant ou avez étudié à l'Université Laval,</li>
+                 <li>Vous allez avoir et apporter plus de fun au milieu universitaire </li> 
+                 </ul>
+</form>
+</div>
+</div> 
+</div>
+{% endblock %}
+{% block script %}
+{{ super() }}
+
+<script>
+$(document).ready(function(e) {	
+
+function check_fb_login(){
+	FB.getLoginStatus(function(response) {
+
+  if (response.authResponse) {
+    token = response.authResponse.accessToken;
+	console.log(token);
+    FB.api('/me', function(response) {
+        console.log(response);
+         $('span.fb-logged-in').html(response.first_name);
+		 document.getElementById('access-token').value=token;
+		 		  
+    });
+  } else {
+    // user not logged_in
+  }
+});
+}
+
+try{
+	check_fb_login();
+}
+catch(ReferenceError){
+	
+	setTimeout(check_fb_login(), 2000);
+}
+	
+});
+	
+</script>
+{% endblock%}

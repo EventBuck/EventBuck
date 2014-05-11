@@ -1,0 +1,214 @@
+
+
+<!doctype html>
+<html>
+<head>
+<title>Put your title here</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta property="fb:admins" content="100002448856234" />
+<link href='http://fonts.googleapis.com/css?family=Roboto|Kaushan+Script'
+	rel='stylesheet' type='text/css'>
+<link href="{{ static }}/css/generic.css" type="text/css" rel="stylesheet" />
+<link href="{{ static }}/css/template.css" type="text/css" rel="stylesheet" />
+<link href="{{ static }}/css/home.css" type="text/css" rel="stylesheet" />
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script src="{{ static }}/js/jquery.raty.min.js"></script>
+</head>
+<body>
+
+{% block facebook_script %}
+<div id="fb-root"></div>
+<script>
+ window.fbAsyncInit = function() {
+    // init the FB JS SDK
+    FB.init({
+      appId      : '129359370579954',                        // App ID from the app dashboard
+      status     : true,                                 // Check Facebook Login status
+	  channelUrl : '//www.eventbuck.com/channel/',
+      xfbml      : true,
+	  cookie     : true,                                 // Look for social plugins on the page
+    });
+ };
+
+
+(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/fr_CA/all.js";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+
+</script>
+{% endblock %}
+
+	<div class="header">
+		<div class="logo">
+			<a href="{{ url_for_home }}"><img src="{{ static }}/images/logo_final.png" alt="eventbuck"></a>
+		</div>
+		<div class="menu">
+			<a href="{{ url_for_home }}" class="{{ active|check_active('home')}}"><h3>Acceuil</h3></a> 
+			<a href="/community" class="{{ active|check_active('community')}}"><h3>Communauté</h3></a> 
+			<a href="{{ url_for_create_event }}" class="{{ active|check_active('createEvent')}}"><h3>Créer un nouvel événement</h3></a>
+		</div>
+		<div class="accountButton">
+			<a href="#" class="notifications">
+				<img src="http://placehold.it/25x25" height="25" width="25" alt="notifications">
+			</a>
+			<a href="#"><h3>{{ user.firstname }}{% if not user.type == "student" %} {{user.name}}{% endif %}</h3> 
+				<img src="http://placehold.it/25x25" height="25" width="25" alt="profil">
+			</a>
+			<!-- <li class="dropdown">
+                     <a href="#" role="button"
+				class="dropdown-toggle" data-toggle="dropdown">{{user.firstname}}{% if not user.type == "student" %} {{user.name}}{% endif %}<i class="icon-cog"></i>
+				
+				</a>
+				<ul id="logout" class="dropdown-menu" role="menu">
+					<li role="presentation"><a role="menuitem" tabindex="-1"
+						href="/edit"> Modifier profil </a></li>
+					<li class="divider"></li>
+                             <li role="presentation"><a role="menuitem" tabindex="-2"
+						href="/edit/notifications"> Paramètres des notifications </a></li>
+                             <li class="divider"></li>
+					<li role="presentation"><a classrole="menuitem" tabindex="-3"
+						href="{{url_for_logout}}"> Déconnexion </a></li>
+				</ul></li> -->
+		</div>
+	</div>
+
+
+	<div class="leftColumn">
+		<div class="profilePicture" id="profile-picture" data-role="profile-picture">
+			<a href="{{ user.key.id() }}"><img src="{{ profile_picture }}" width="115"
+				alt="Photo de profil"><br><h4>{{ user.name }}</h4></a>
+		</div>
+		<a href="{{ user.key.id() }}" class="buttonLink allWidth {% if user == target %}active{% endif %}"><h4>Profil</h4></a> 
+		<a href="/subscription" class="buttonLink allWidth {{left_sidebar|check_active("subscription")}}"><h4>Abonnements</h4></a>
+		<a href="{{url_for_user_events}}" class="buttonLink allWidth {{left_sidebar|check_active("my_events")}}"><h4>Mes Events</h4></a>
+		<hr>
+		<img src="http://placehold.it/40x40" height="40" width="40" alt="facebook"> 
+		<img src="http://placehold.it/40x40" height="40" width="40" alt="twitter"> 
+		<img src="http://placehold.it/40x40" height="40" width="40" alt="google+">
+		<div id="social-div">
+		<div class="fb-like" data-href="https://www.facebook.com/eventbuck" data-width="200" data-show-faces="true" data-send="false"></div>
+        <div class="fb-send" data-href="http://www.eventbuck.com" height="30px"></div>
+		</div>
+		<br>
+		<br>
+		<a href="{{ url_for_about }}"><h5>À propos</h5></a>
+		<a href="{{url_for_contact}}"><h5>Nous joindre</h5></a>
+		<a href="/terms"><h5>Conditions</h5></a>
+	</div>
+
+
+	<div class="rightColumn">
+		<div class="poster">
+		<a href="#">
+			<h3>Utilisateur de la semaine</h3>
+			<img src="http://placehold.it/125x125" height="125" width="125"
+				alt="Utilisateur de la semaine">
+			<br>
+			<h4>Christophe Durand</h4>
+			<h5>30 événements</h5>
+		</a>
+		</div>
+		<hr>
+		<div class="poster">
+		<a href="#">
+			<h3>Event de la semaine</h3>
+			<img src="http://placehold.it/175x65" height="65" width="175"
+				alt="Northern III">
+			<br>
+			<h4>Northern III</h4>
+			<h5>23&nbsp;janvier</h5>
+		</a>
+		</div>
+		<hr>
+		<div class="poster">
+		<h3>Donnes ton avis</h3>
+		<a href="#">
+			<img src="http://placehold.it/175x65" height="65" width="175"
+				alt="La grande soif">
+			<br>
+			<h4>La grande soif</h4>
+			<h5>19&nbsp;décembre</h5>
+		</a>
+			<div id="randomEventRating" class="stars"></div>
+		</div>
+	</div>
+
+	<div class="centerColumn">
+		<div class="slideshow">
+			<img src="{{ static }}/images/slideshow1.png" height="320" width="750"
+				alt="Image d'acceuil">
+		</div>
+		<h2>Tous les événements à votre portée !</h2>
+		<div class="button first">
+			<a href="{{ url_for_party }}" class="buttonLink {{active_submenu|check_active('party')}}"><h3>Party</h3></a>
+		</div>
+		<div class="button">
+			<a href="{{ url_for_sport }}" class="buttonLink {{active_submenu|check_active('sport')}}" ><h3>Sport</h3></a>
+		</div>
+		<div class="button">
+			<a href="{{ url_for_academic }}" class="buttonLink {{active_submenu|check_active('academic')}}"><h3>Académique</h3></a>
+		</div>
+		<div class="button">
+			<a href="{{ url_for_others }}" class="buttonLink {{active_submenu|check_active('other')}}"><h3>Divers</h3></a>
+		</div>
+		<div class="button last">
+			<a href="/all" class="buttonLink {{active_submenu|check_active('all')}}"><h3>Tous</h3></a>
+		</div>
+		<div class="evenement">
+			<div class="column1">
+				<div class="row1">
+					<a href="#" class="buttonLink"><h3>Party</h3></a>
+				</div>
+				<a href="{{ events[0].seller_id}}/{{events[0].id}}">
+					<img src="{% if events[0].image_url %}{{events[0].image_url}}{% if not events[0].is_image_extern %}=s275{% endif %}{% else %}{{events[0].image}}{% endif %}" height="175" width="275"
+						alt="{{events[0].name}}">
+					<br>
+					<h4>{{events[0].name}}</h4>
+					<h5>{{events[0].date_event|datetime}}</h5>
+				</a>
+			</div>
+			<div class="column2">
+				<div class="row1">
+					<a href="#" class="buttonLink"><h3>Tous les party</h3></a>
+				</div>
+				<div class="smallEvent">
+					<a href="{{ events[1].seller_id}}/{{events[1].id}}">
+						<img src="{% if events[1].image_url %}{{events[1].image_url}}{% if not events[1].is_image_extern %}=s175{% endif %}{% else %}{{events[1].image}}{% endif %}" height="65" width="175"
+							alt="{{events[1].name}}"> 
+						<span class="smallEventText">
+							<h4>{{events[1].name}}</h4>
+							<h5>{{events[1].date_event|datetime}}</h5>
+						</span>
+					</a>
+				</div>
+				<div class="smallEvent">
+					<a href="{{ events[2].seller_id}}/{{events[2].id}}">
+						<img src="{% if events[2].image_url %}{{events[2].image_url}}{% if not events[2].is_image_extern %}=s175{% endif %}{% else %}{{events[2].image}}{% endif %}" height="65" width="175"
+							alt="{{events[2].name}}">
+						<span class="smallEventText">
+							<h4>{{events[2].name}}</h4>
+							<h5>{{events[2].date_event|datetime}}</h5>
+						</span>
+					</a>
+				</div>
+			</div>
+		</div>
+		<div style="clear:both;"></div>
+	</div>
+
+
+<script type="text/javascript">$('#randomEventRating').raty({ 
+	score: 3, 
+	path: '{{ static }}/images', 
+	starOff : 'star-off.png',
+	starOn  : 'star-on.png',
+	click: function(score, evt) {
+	    alert('ID: ' + $(this).attr('id') + "\nscore: " + score + "\nevent: " + evt);
+	  }
+	});</script>
+</body>
+</html>

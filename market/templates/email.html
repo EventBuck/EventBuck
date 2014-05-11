@@ -1,0 +1,107 @@
+{% if user %}
+{% extends "home.html" %}
+{% else %}
+{% extends "index.html" %}
+{% endif %}
+{% block title %}
+{{ user.firstname }} - Profile
+{% endblock %}
+{% block central_container%}
+<div class="span9 well">
+    <h3>Notifications par email</h3><small>Choisissez vos paramètres de notifications<br>[N'oublier pas d'enregistrer vos changements à la fin]</small
+    >
+    <hr>
+     <div class="alert alert-success fade in clearfix edit-success" style="display:none;">
+  <h4>Parfait!</h4>
+  Vos modifications ont été enregistrées. Merci!
+</div>
+    <div class="alert alert-error alert-block edit-error fade in" style="display:none;">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <div>
+  <h4>Oups! Il y a eu un pépin!</h4>
+  Quelque chose n'a pas bien marché, Vérifiez que tout est correct et recommencez plutard. Si ça ne marche pas toujours, tenez-nous au courant et tout sera résolu!
+  </div>
+</div>
+    
+  <form class="form-horizontal" id="rpc-edit-notif">
+  {% if user.type == 'student' %}
+   <h4>Choisir email de contact</h4>
+   <small>Choisissez l'addresse email à laquelle vous désirez recevoir des notifications</small>
+       	     	<div class="control-group">
+    <label class="control-label" for="email">M'écrire à:</label>
+    <div class="controls">
+      <input name = 'email_to_use' type="radio" value="email" {% if notifications.email_to_use == 'email' %} checked {% endif %}> {{ user.email }}<br>
+      <input name = 'email_to_use' type="radio" value="u_email" {% if notifications.email_to_use == 'u_email' %} checked {% endif %}> {{ user.u_email }}<br>
+      
+    </div>
+  </div>
+   <hr>
+   {% endif %}
+   
+ <!--	<h4>Vos activites</h4>
+    	     	<div class="control-group">
+    <label class="control-label" for="password">M'ecrire quand:</label>
+    <div class="controls">
+      <input type="checkbox" value="remember-me"checked> Je reserve un evenement<br>
+      <input type="checkbox" value="remember-me"checked> Je fait je sais quoi<br>
+    </div>
+  </div>
+    <hr>
+    -->
+    	
+    <h4>Evenements</h4>
+    	   	     	<div class="control-group">
+    <label class="control-label" for="password">M'écrire:</label>
+    <div class="controls">
+      <input name="daily_alert" type="checkbox" value="daily-notification" {% if notifications.daily_alert %}checked {% endif %}> Quand un event auquel j'ai prévu de participer a lieu aujourd'hui<br>
+      <input name="weekly_digest" value="weekly-notification" type="checkbox" {% if notifications.weekly_digest %}checked {% endif %}> Pour m'informer sur les événements qui ont lieu cette semaine<br>
+      <!-- <input type="checkbox" value="remember-me"checked> Une de mes connections reserve un evenement<br> -->
+      
+    </div>
+  </div>
+    <hr>
+    <!-- <h4>Vos Connections</h4>
+        	   	     	<div class="control-group">
+    <label class="control-label" for="password">M'écrire quand:</label>
+    <div class="controls">
+      <input type="checkbox" value="remember-me"checked> Une personne commence a me suivre<br>
+      <input type="checkbox" value="remember-me"checked> Une de mes connections reserve un evenement<br>
+      
+    </div>
+  </div>
+  <hr> -->
+    <h4>Autres</h4>
+        	   	     	<div class="control-group">
+    <label class="control-label" for="password">M'écrire à propos de:</label>
+    <div class="controls">
+      <input name = "newsletter" type="checkbox" value="newsletter" {% if notifications.newsletter %} checked {% endif %}> Nouveautés sur EventBuck <br>
+      <input name = "help_me" type="checkbox" value="help-me" {% if notifications.help_me %} checked {% endif %}> Astuces sur l'utilisation d'EventBuck<br>
+      <!-- 
+      <input type="checkbox" value="remember-me" checked> Partenaires d'Ojo Ticket <br>
+      <input type="checkbox" value="remember-me" checked> Suggestion de connections ainsi que d'organisateur<br>
+      <input type="checkbox" value="remember-me" checked> Sondages d'utilisateur d'Ojo Ticket<br> -->
+      
+    </div>
+  </div>
+    <hr>
+        <div class="control-group">
+    <div class="controls">
+      <button type="submit" class="btn">Enregistrer les changements</button>
+    </div>
+  </div>
+</form>
+</div>
+{%block side_right%}
+<div class="span3">
+        <div class="row-fluid">
+            <div class="span12 well">
+                <ul class="nav nav-list bs-docs-sidenav">
+                 <li><a href="/edit"><i class="icon-info-sign"></i>Compte</a></li>
+                  <li><a href="/edit/password" ><i class="icon-lock"></i> Mot de passe </a></li>
+                  <li><a href="#"style="background-color:lightgrey;"><i class="icon-envelope"></i>Notifications</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock%}
+{% endblock %}

@@ -1,0 +1,159 @@
+{% extends "base1.html" %} {% block title %} Créer votre compte {%
+endblock %} {% block head %} {{ super() }}
+<meta name="description" content="Enregistrez vous pour votre compte">
+
+{% endblock %} {% block style %} {{ super() }}
+<style>
+#pwd {
+	display: none;
+}
+
+#mail {
+	display: none;
+}
+
+.help-inline {
+	color: red;
+}
+</style>
+{% endblock %} {% block content %}
+
+<div class="row" style="margin-top: 140px">
+	<h2>Créer votre compte</h2>
+</div>
+
+<div id="signupform" class="span8">
+
+	<p>Pour pouvoir vendre des tickets et promouvoir vos evenements
+		avec nous, vous devrez créer votre compte ici.</p>
+	<form action="/shop/signup" method="post"
+		class="form-horizontal make-border"
+		onSubmit="return FormValidation();">
+
+		<div class="control-group">
+			<label class="control-label" for="email"> Email : </label>
+			<div class="controls">
+				<input class="span4" type="email" name="email" required
+					id="emailget" />
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="confirm_email">Re-entrez
+				votre email: </label>
+			<div class="controls">
+				<input class="span4" type="email" name="confirm_email" required
+					id="confmail" onblur="blurevent2()" />
+				<div id="mail">
+					<span class="help-inline">email not Matching</span>
+				</div>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="password"> Mot de Passe: </label>
+			<div class="controls">
+				<input class="span4" type="password" name="password" required
+					id="pass" />
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="confirm_password">
+				Re-entrez mot de passe: </label>
+			<div class="controls">
+				<input class="span4" type="password" name="confirm_password"
+					required onblur="blurevent()" id="confpwd" />
+				<div id="pwd">
+					<span class="help-inline">Password not Matching</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="control-group">
+			<label class="control-label" for="name">Nom: </label>
+			<div class="controls">
+				<input class="span4" type="text" name="name"
+					placeholder="Entrez le nom de votre organisation" required />
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="description">Description de
+				votre organisation:</label>
+			<div class="controls">
+				<textarea class="span4" rows="3" cols="4" name="description"
+					required
+					placeholder="Entrez une petite description de votre organisation"></textarea>
+			</div>
+		</div>
+
+		<div class="control-group">
+			<label class="control-label" for="telephone">Numéro de
+				Téléphone: </label>
+			<div class="controls">
+				<input class="span4" type="tel" name="telephone" />
+			</div>
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<label class="span4 checkbox text-left"> <input
+					type="checkbox" name="agree" value=1 required
+					id="checkboxcondition">J'accepte les conditions
+					d'utilisation d'ojo-ticket.
+				</label> <br /> <br /> <br />
+				<button type="submit" class="btn" onClick="subm()">Créer
+					compte</button>
+			</div>
+		</div>
+
+	</form>
+
+</div>
+<!-- end of signup form-->
+<div class="span3 make-border" style="margin-top: 25px">
+	<h2>Déjà Inscrit?</h2>
+	<a href="{{url_for_signin}}">Connectez-vous</a> à votre Compte
+</div>
+</div>
+{% endblock %} {% block script %} {{ super() }}
+<script type="text/javascript">
+//function to check if password matches
+//each variable validate one option, email, password and conditions
+var validateMail=false;
+var validatePwd=false;
+function blurevent(){
+	var pwd=document.getElementById('pass').value
+	var confpwd=document.getElementById('confpwd').value
+	
+	if (pwd!=confpwd){
+		document.getElementById('pwd').style.display="block";
+		validatePwd=false;
+	}
+	else{
+		document.getElementById('pwd').style.display="none";
+		validatePwd=true;
+	}
+
+}
+//function to check if email matches
+function blurevent2(){
+	var email=document.getElementById('emailget').value
+	var confmail=document.getElementById('confmail').value
+	if (email!=confmail){
+		document.getElementById('mail').style.display="block";
+		validateMail=false;
+	}
+	else{
+		document.getElementById('mail').style.display="none";	
+		validateMail=true;
+	}
+}
+//function to submit if all validate are true
+function FormValidation(){
+	if (validateMail==true && validatePwd==true){
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+</script>
+{% endblock %}
+

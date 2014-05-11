@@ -1,0 +1,137 @@
+{% if user %}
+{% extends "home.html" %}
+{% else %}
+{% extends "index.html" %}
+{% endif %}
+{% block head %}
+{{ super() }}
+<style type="text/css">
+#central-content{
+
+}
+#contact-form-error{
+	display:none;
+}
+
+.make-border{
+	border: 1px solid #e5e5e5;
+	-webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
+	-moz-box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
+	box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
+	background-color:white;
+	opacity: 0.9;
+    filter: alpha(opacity = 90);
+	margin-bottom:10px;
+}
+.header-div{
+	background-color:#8EA2C6;
+	padding:3px 15px 3px 15px;}
+	
+.required{
+	color:red;
+	}
+
+</style>
+{% endblock %}
+{% block central_container %}
+<div id="central-content" class="container-fluid well">
+<div class="row-fluid">
+	<div class="span8 well" id="contact-form-div">
+        <div class="alert alert-error" id="contact-form-error">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <strong> Oups!</strong> Il y a quelque chose qui n'a pas marché. Vous pouvez réessayer ultérieurement ou  <a href="mailto:support@eventbuck.com" target="_top">nous contacter par Email</a>
+        </div>
+    	<div class="header-div make-border"><span style="font-family: Omnes-Pro, Omnes, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+font-size: 20px;
+line-height: 28px;" class="">Un problème ou juste pour dire salut, écrivez-nous</span></div>
+			<form class="form" id="contact-form">
+            {% if not user %}
+            <div class="row-fluid">
+            	<div class="span12">
+                	<label>Je suis <span class="required">*</span></label>
+                <select style=" width:50%" name='type'>
+                	<option>Choisir une option</option>
+                    <option value="Organisateur">un organisateur</option>
+                    <option value="Etudiant"> Un Etudiant</option>
+                    <option value="Autre">Autre</option>
+                </select></br>
+                </div>
+            </div>
+            <div class="row-fluid">
+            	<div class="span10">
+                	<label>Nom <span class="required">*</span></label>
+                <input type="text" style="width:100%;" required name="name"/>
+                </div>
+            </div>
+            <div class="row-fluid">
+            	<div class="span10">
+                <label>E-mail address <span class="required">*</span></label>
+                <input name="email" type="text" style="width:100%;" required/>
+                </div>
+            </div>
+            {% endif %}
+            <div class="row-fluid">
+            	<div class="span10">
+                <label>Sujet <span class="required">*</span></label>
+                <input type="text" style="width:100%;"  name="subject" required/>
+                </div>
+            </div>
+             <div class="row-fluid">
+            	<div class="span10">
+                <label>Détails <span class="required">*</span></label>
+                <textarea style="width:100%; height:150px;" required name="message"></textarea>
+                </div>
+            </div>
+            <button class="btn btn-primary" onClick="send_contact_message(); return false;">Envoyer</button>
+            </form>
+
+    </div>
+    <div class="span4">
+    <div class="row-fluid">
+    <div class="span12 well">
+    	<div class="header-div make-border"><span style="font-family: Omnes-Pro, Omnes, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+font-size: 18px;
+line-height: 28px;">Questions Fréquentes</span></div>
+<ul class="nav nav-list">
+  <li class="nav-header">Tous</li>
+  <li><a href="/about">C'est quoi EventBuck?</a></li>
+  <!--
+  <li><a href="#">Comment faire ceci, cela</a></li>
+  <li class="nav-header">Etudiants</li>
+  <li><a href="#">Comment faire ceci, cela</a></li>
+  <li><a href="#">Comment faire ceci, cela</a></li>
+  <li class="nav-header">Autres</li>
+  <li><a href="#">Comment faire ceci, cela</a></li>
+  <li><a href="#">Comment faire ceci, cela</a></li> -->
+</ul>
+</div>
+</div>
+<div class="row-fluid">
+	<div class="span12 well">
+    <div class="header-div make-border"><span style="font-family: Omnes-Pro, Omnes, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+font-size: 18px;
+line-height: 28px;">Autres Contacts</span></div>
+    <!-- CAN'T RECEIVE CALL YET
+    <img src="/static/img/call.png" width="50px;" height="50px;">
+    <span style="size:50px;">581-998-8051</span>
+    <hr>
+    -->
+    <span style="size:50px;"><i class="icon-envelope"> </i> <a href="mailto:support@eventbuck.com">support@eventbuck.com</a></span>
+    <hr>
+    <a href="#"><img src="/static/img/twitter.png" width="50px;" height="50px;"></a>
+    <a href="#"><img src="/static/img/facebook.png"width="50px;" height="50px;"></a>
+    <a href="#"><img src="/static/img/gplus.png"width="50px;" height="50px;"></a>
+    
+    </div>
+</div>
+    </div>
+</div>	
+
+</div>
+{% endblock %}
+{% block footmobile%}
+{%endblock%}
+
+{% block market_script %}
+{% endblock %}
+

@@ -1,0 +1,148 @@
+{% extends "my_events.html" %} 
+{% block title %} {% if edit %} Modifier
+l'evenement {{ event.name }} {% else %} Créer un évenement {% endif %}
+
+{% endblock %} 
+
+{% block head %}
+{{ super() }}
+<style>
+#import-facebook-event{
+	display:none;
+	margin-top: 3%;
+}
+</style>
+{% endblock %}
+
+{% block central_container %}
+
+<div id="central-container" class="well" style="min-height:380px;">
+{% if admin %}
+{% if edit %}
+
+
+<h2>
+	<button class="btn btn-primary" onclick="show_fbimport()">Cliquer pour importer les modifications de facebook</button>
+	</h2>
+		{% else %}
+		<button class="btn btn-primary" onclick="show_fbimport()">Cliquer pour importer un event facebook</button>
+		{% endif %}
+        {% endif %} 
+        <div id="create-event-error" class="alert alert-error" style="display:none;">
+            
+            </div>
+        
+		<hr>
+        <div>
+        
+        <form id="import-facebook-event" method="post" onSubmit="return false;">
+           <input type="text" name="link" class="span6" placeholder="Lien de l'événement" > <button type="submit">Importer </button>
+        </form>
+        
+		<form id="{% if edit %}edit-event-form{% else %}create-event-form{% endif %}" class="make-border form-horizontal"
+			action="{% if edit %} {{ url_for_editEvent }} {% else %} {{url_for_rpc_create_event}} {% endif %}"
+			 enctype="multipart/form-data" method="post" >
+			<div class="control-group">
+				<label class="control-label">Nom de l'Evenement:</label>
+				<div class="controls">
+					<input type="text" id="eventName" required placeholder="Nom de l'événement"
+						class="span7" name="name"
+						value="{% if edit %}{{event.name}}{% endif %}" maxlength="100">
+                        <input type="hidden" name="is_facebook">
+				</div>
+			</div>
+
+			<div class="control-group">
+				<label class="control-label">Description</label>
+				<div class="controls">
+					<textarea class="span7" rows="4" placeholder="Decrire l'événement..."
+						required name="description">{% if edit %}{{event.description|break_to_newline}}{% endif %}</textarea>
+				</div>
+			</div>
+            
+            <div class="control-group">
+				<label class="control-label">Catégorie:</label>
+				<div class="controls">
+                   <select name="category"
+							class="span4">
+                            <option value="" disabled selected>{%if edit %}{{event.category|category}}{% else %}Quel genre d'événement?{% endif %}
+                            <option value="academic">Académique</option>
+							<option value="party" >Party</option>
+                            <option value="sport">Sport</option>
+                            <option value="other"> Divers </option>
+						</select>
+				</div>
+			</div>
+
+			<div class="control-group">
+				<label class="control-label">Nom du Lieu:</label>
+				<div class="controls">
+					<input type="text" id="venue_name" required
+						placeholder="Où se déroule l'evenement" class="span7"
+						name="venue_name" value="{% if edit %}{{event.venue_name}}{% endif%}">
+				</div>
+			</div>
+
+			<div class="control-group">
+				<label class="control-label">Adresse du Lieu</label>
+				<div class="controls">
+					<input type="text" id="venue_addresse" required placeholder=""
+						class="span7" name="venue_addresse"
+						value="{% if edit %}{{event.venue_addresse}}{% endif%}"> <input
+						type="hidden" id="geolocation" name="geo_location">
+				</div>
+			</div>
+
+			<div class="control-group">
+				<label class="control-label">Date et Heure</label>
+				<div class="controls">
+					<input type="text" name="date_event" id="date_event" value="{% if edit %}{{ event.date_event|datetime_to_jquery}}{% endif %}" required/>
+				</div>
+			</div>
+            
+			<div class="control-group">
+				<label class="control-label">Event Thumbnail</label>
+				<div class="controls">
+					<div class="fileupload fileupload-new" data-provides="fileupload">
+                      <div id="event-picture" class="fileupload-preview thumbnail" style="width: 200px; height: 150px;"></div>
+                        <div><span class="btn btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span><input type="file" name="image" /></span>
+    <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+  </div>
+</div>
+				</div>
+			
+
+			<div class="control-group">
+				<label class="control-label">Terms & Conditions </label>
+				<div class="controls">
+					<textarea class="span7" rows="4"
+						placeholder="Quelles sont les conditions de participation? Gratuit, payant, où payer, code vestimentaire, etc..." name="terms">{% if edit and event.terms %}{{event.terms|break_to_newline}}{% endif %}</textarea>
+				</div>
+			</div>
+            <div class="control-group">
+				<label class="control-label">Si existe, un lien vers le site de l'event:</label>
+				<div class="controls">
+					<input type="text" id="eventUrl"  placeholder="Site de l'event"
+						class="span7" name="url"
+						value="{% if edit and event.url %}{{event.url}}{% endif %}">
+				</div>
+			<div class="control-group">
+				<div class="controls">
+					<button type="submit" class="btn btn-primary">{% if edit %} Modifier
+						Evenement {% else %} Créer Event {% endif %}</button>
+				</div>
+			</div>
+         
+         </form>
+         </div>
+        </div>
+			{% endblock %}
+            
+{% block script %}
+{{ super() }}
+<script>
+function show_fbimport(){
+$('#import-facebook-event').slideDown('slow');
+}
+</script>
+{% endblock %}

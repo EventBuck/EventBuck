@@ -1,0 +1,410 @@
+
+{% extends "index.html" %}{% block title %} Connectez vous pour accéder à EventBuck! Ici c'est le Fun! {% endblock %} 
+
+{% block head %}
+{{ super() }}
+
+<style>
+html, body{
+	height:100%;
+}
+.form-box {
+	height: 200%;
+	padding: 10px 29px 29px;
+    filter:alpha(opacity=90);
+	display: compact;
+	float:left;
+	background-size:auto;
+	
+}
+.left, .right {
+	
+	margin-top: -0.8%;
+	}
+.left{
+	background-color:#003;
+	 width:52%;
+	 float:left;
+	 height:100%;
+	
+}
+.left-content{
+	padding-top:35%;
+	padding-left:30%;
+}
+.right{
+	background-color:white;
+	width:48%;
+	float:right;
+	height:100%;
+	
+	
+	}
+.right-content{
+	padding-left:8%;
+	padding-top : 10%;
+
+}
+.fb-frame{
+	display:none;
+	}
+
+.facebook-signin{
+   margin-top:15%;
+   margin-bottom:6%;
+}
+#signform{
+	padding:0px;
+	margin-bottom:15%;}
+#content-div{
+	width:80%;
+	display:block;
+	margin-top:30px;}
+.cond_span{
+	font-family: 'Helvetica Neue', Arial, sans-serif;
+font-size: 10px;
+line-height: normal;
+color:grey;
+	}
+.btn_txt{
+	font-size:20px;
+	text-align:center;
+	margin-left:0px;}
+#footer li a{
+	color:grey;
+	font-size:12px;
+	}
+#form1, #form2{
+	display:none;
+	height:40%;
+	margin-top:40px;}
+
+#form2 textarea{
+	width:80%;
+}
+	
+.text_signin{
+	font-size:12px;
+	color:grey;}
+
+#social-div{
+ margin-top:15%;	
+}
+
+.w-big{
+	font-size:28px;
+	font-weight:bolder;
+	color:#FFF;
+}
+.w-small{
+	margin-top:2%;
+	color:#999;
+}
+div.fb-facepile{
+	color:white;
+}
+#form{
+		display:none;}
+.signup_button{
+		width:70%; height:50px;}
+.signup-asso{
+	font-size:14px;
+	font-weight:bold;
+}
+#signup-error{
+	width:80%;
+	display:none;
+}
+
+		
+@media (max-width: 768px){
+	body, html {
+  padding-top:6px;
+}
+.right{
+	width:100%;
+	height: 120%;
+	margin-top: -3.5%;
+	position: relative;
+	margin-left: inherit;
+	float:none;
+	}
+.right-content{
+		text-align: center;
+		padding-left:inherit;
+		padding:5%;
+	}
+#content-div{
+	width:100%;
+	display:block;
+	margin-top:5%;
+	}
+#form1, #form2 {
+	text-align:left;
+  
+	margin-top:10px;
+}
+.signup_button{
+	width:100%;
+	}
+.label_name{
+			font-weight:bold;
+			font-size:13px;}
+.signup-label{
+			font-size:12px;}
+input{
+	width:100%;}
+
+#form1 input[type='text'], input[type='email'], input[type='password']{
+	width:120%;
+}
+#form2 input[type='text'], input[type='email'], input[type='password'], input[type='tel']{
+	width:120%;
+}
+#form2 textarea{
+	width:100%;
+}
+.shop_signup{
+	width:100%;
+	margin-top:10px;
+	}
+
+	
+	}
+	
+
+</style>
+{% endblock %}
+{% block nav%}
+{{ super() }}
+{% endblock%}
+{% block body %}
+
+<!-- Left part of the signin page -->
+<div class="left pull-left transparent hidden-phone">
+	
+        <div class="left-content">
+        <div class="clearfix w-big">Connectez-vous à EventBuck</div>
+        <div class="w-small">Vivez l'ambiance de notre communauté étudiante.</div>
+         <div class="clearfix " id="social-div">
+                <div class="fb-facepile" data-app-id="129359370579954" data-width="300" data-show-faces="true" data-max-rows="2" data-colorscheme="dark"></div>
+                </div>
+        
+        </div>
+	
+    </div><!-- end left part-->
+
+
+
+<!--Desktop page-->
+<!-- Right Side of the sign in page-->
+<div class="transparent right">
+<div class ="right-content">
+	<!-- sign in form -->
+   
+    <div class="row-fluid hidden-desktop text-center">
+            <span class="label_name">Vous possédez déjà un compte?</span>
+            </div><br class="hidden-desktop" />
+	<div class="row-fluid" id="signform">
+        <form class="form-inline form-signin" method="post" id="signin-form">
+     <input type="email" id="inputEmail" placeholder="Adresse Email" required
+					name="email" class="span4 input-small"><br class="hidden-desktop"><br class="hidden-desktop"/>
+      <input type="password" id="inputPassword" class="span4 input-small"
+					placeholder="Mot de Passe" name="password" required><br class="hidden-desktop"><br class="hidden-desktop"/>
+      <button type="submit" class="btn">Se connecter</button>
+    <div class="row-fluid" style="margin-top:0px;">
+    	<div class="span4"><input type="checkbox" name='remember_me' value="yes" checked><span class="text_signin"> Garder ma
+				session active</span><br></div>
+        <div class="span4"><a href="#" onClick="forgot_password(); return false;"><span class="text_signin">Mot de passe oublié?</span></a></div>
+    </div>
+       </form>
+       <div class="row-fluid"><button class="btn btn-primary"  onclick="authUser(); return false;" ><span class="btn_txt"><img src="/shop/static/img/fbicon3.png">Se connecter avec Facebook</span></button></div>
+       </div> <!-- End of sign in form-->
+        
+      
+      
+      
+         <!-- facebook signup and email signup button -->
+    <div id="content-div" class="row-fluid signup-form">
+    		<!--Button for user login and signup-->
+        
+        <div class="row-fluid"><button class="btn btn-primary"  onclick="authUser(); return false;" ><span class="btn_txt"><img src="/shop/static/img/fbicon3.png">S'enregistrer avec Facebook</span></button></div><br>
+        <div class="row-fluid"><button class="btn btn-primary signup_button" id="EB_signup1" style="padding:0px;"><span class="btn_txt">S'enregistrer avec email</span></button></div>
+    <div id="conditions" style="width:300px;" class="row-fluid">
+    <span class="cond_span">En Vous enregistrant,Vous confirmez que:
+                 Vous avez lu et accepté nos {{ terms_link() }}</span>
+              
+     </div>
+     
+     <div class="row-fluid">
+          <span class="signup-asso span12" id="signup-label">S'enregistrer en tant qu'association étudiante? <a class="signup-label-btn" href="">Cliquez ici</a></span>
+    	</div>
+        
+     </div> <!-- end button for user-->
+     		
+            <div id="signup-error" class="alert alert-error">
+            
+            </div>
+            <!-- sign up form user-->
+      
+     <div id="form1">
+     <form  class='user-signup' action="{{url_for_signup}}{% if callback %}?callback={{callback}}" data-callback = "{{callback}}{% endif %}" method="post" id="student-signup-form">
+     	<div class="row-fluid">
+        	<div class="input-prepend"><span class="add-on"><i class="icon-user"></i></span>
+                  <input type="text" id="inputfirstname" placeholder="Prénom" required
+          name="firstname" maxlength="20"  title="Le prénom doit être composé de lettres seulement"></div>
+          <div class="input-prepend"><span class="add-on hidden-desktop" ><i class="icon-user"></i></span>
+            <input type="text" id="inputlastname" placeholder="Nom" required
+          name="name" maxlength="20"  title="Le nom doit être composé de lettres seulement">
+          
+          	</div>
+        </div>
+        <div class="row-fluid">
+          	<div class="input-prepend">
+                <span class="add-on"><i class="icon-envelope"></i></span>
+                <input id="email" type="email" placeholder="Adresse email"  name='email' required >
+              </div>  
+        </div>
+        <div class="row-fluid">
+        		<div class="input-prepend"><span class="add-on"><i class="icon-lock"></i></span>
+                 <input type="password" id="inputPassword"
+          placeholder="Nouveau mot de passe" name="password" required pattern=".{5,}" title="Votre mot de passe doit avoir 5 charactères minimums"></div>
+                <div class="input-prepend"><span class="add-on hidden-desktop"><i class="icon-lock"></i></span>
+                 <input type="password" id="inputPassword"
+          placeholder="Confirmer votre mot de passe" name="confirm_password" required pattern=".{5,}" title="Votre mot de passe doit avoir 5 charactères minimums">
+                </div>
+                 
+        </div>
+        <div class="row-fluid">
+        	<span style="margin-right:10px;"><input type="radio" name="gender" value="male"> Homme </span>
+               <span><input type="radio" name="gender" value="female" > Femme </span>
+        </div><br>
+        <div class="row-fluid">
+        		<div class="input-prepend">
+                <span class="add-on"><i class="icon-envelope"></i></span>
+                <input id="email" type="email" placeholder="Email ULaval (@ulaval.ca)" name="u_email" required ><br/>
+                <a href="#" style="font-size:12px;">Ceci nous permettra d'éviter les intrus!!</a>
+              </div>
+        </div>
+        <div class="row-fluid">
+                 <span class="cond_span span10">En cliquant sur "S'enregistrer" Vous confirmez que:
+                 Vous avez lu et accepté nos {{ terms_link() }}</span>
+
+        </div>
+        <div class="row-fluid">
+        	<div class="clearfix span10"><div style=" float:right;"><a href="#" class="cancel_registration1">Annuler</a> <button class="btn btn-primary" type="submit"><i class="icon-chevron-right icon-white"></i>&nbsp;S'enregistrer</button></div></div>
+        </div>
+     	</form>
+     </div>
+     <!--End sign up form user-->
+     
+     <!-- Sign up form for shop-->
+     
+     <div class="shop_signup" id="form2">
+     	<form class="signup-form" id="asso-signup-form" action="/shop/signup" method="post"
+		onSubmit="return FormValidation();" >
+        <div class="row-fluid">
+        	<div class="input-prepend">
+                <span class="add-on"><i class="icon-envelope"></i></span>
+                <input id="email" type="text" placeholder="Adresse email"  name='email' required ></div>
+                <div class="input-prepend">
+                <span class="add-on hidden-desktop"><i class="icon-envelope"></i></span>
+                  <input id="email" type="text" placeholder="Re-entrez votre email"  name='confirm_email' required  class="input_shop">
+                  
+              </div>
+        </div>
+        <div class="row-fluid">
+        		<div class="input-prepend"><span class="add-on"><i class="icon-lock"></i></span>
+                 <input type="password" id="inputPassword"
+          placeholder="Nouveau mot de passe" name="password" required title="Votre mot de passe doit avoir 5 charactères minimums"></div>
+                <div class="input-prepend"><span class="add-on hidden-desktop"><i class="icon-lock"></i></span>
+          <input type="password" id="inputPassword"
+          placeholder="Confirmer votre mot de passe" name="confirm_password" required title="Votre mot de passe doit avoir 5 charactères minimums">
+                 </div>
+        </div>
+        <div class="row-fluid">
+        	<div class="input-prepend"><span class="add-on"><i class="icon-briefcase"></i></span>
+				<input type="text" name="name"
+					placeholder="Nom de l'association" required   title="Le nom doit être en alpha-numérique"/>
+			</div>
+        </div>
+        <div class="row-fluid">
+        		<div class="input-prepend"><span class="add-on"><i class="icon-info-sign"></i></span>
+				<input type="tel" name="telephone" placeholder="Votre numéro de contact" />
+			</div>
+        </div>
+        <div class="row-fluid">
+        		<textarea  rows="3" name="description" required
+					placeholder="Entrez une petite description de votre organisation"></textarea>
+        </div>
+        <div class="row-fluid">
+                 <span class="cond_span span10">En cliquant sur "S'enregistrer" Vous confirmez que:
+                 Vous avez lu et accepté nos {{ terms_link() }}</span>
+
+        </div>
+        <div class="row-fluid">
+        	<div class="clearfix span10"><div style=" float:right;"><a href="#" class="cancel_registration1">Annuler</a><button class="btn btn-primary" type="submit"><i class="icon-chevron-right icon-white"></i>&nbsp;S'enregistrer</button></div></div>
+        </div>
+        
+        </form>
+     </div>
+     
+     <!-- End signup form shop-->     
+     <!-- small div to show message-->
+        
+        
+</div>
+<!-- End of right side signin page -->
+
+
+</div>
+
+  </div>
+  {% block footmobile %}
+{{ super() }}
+{% endblock %}
+{% endblock %}
+{% block script %}
+{{ super() }}
+<script>
+   $('.signup-label-btn').click(function(e) {
+        $('#content-div').hide();
+		$('#form2').show();
+		window.location.hash = "#form2";
+		return false;
+    });
+$("#EB_signup1").click(function(e){
+	$('#content-div').hide();
+	$('#form1').show();
+	window.location.hash = "#form1";
+	});
+$('.cancel_registration1').click(function(e){
+	$('#content-div').show();
+	window.location.hash = "#content-div";
+	$('#form1').hide();
+	$('#form2').hide()
+	});
+</script>
+<script>
+// Login in the current user via Facebook and ask for email permission
+  
+      function authUser() {
+        FB.login(checkLoginStatus, {scope:'email'});
+      }
+      
+      // Check the result of the user status and display login button if necessary
+      function checkLoginStatus(response) {
+        if(response && response.status == 'connected') {
+          window.location.href = "http://www.eventbuck.com/signup/fb{% if callback %}?callback={{callback}}{% endif %}";
+          
+        } else {
+          bootbox.alert('Hey, Vous pouvez toujours utiliser le formulaire par défaut!');
+		  $('#EB_signup1').trigger('click');
+        }
+      }
+	
+	
+</script>
+{% endblock%}
+{% block addthis %}
+{% endblock %}

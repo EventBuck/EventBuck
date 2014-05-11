@@ -1,0 +1,14 @@
+{% extends "home.html" %}
+    {% block subnav %}
+    {% endblock %}
+{% block event_container %}
+   {% if not events %}
+   {% if subscription %}
+   <p class="text-center" style="padding-top:150px; padding-bottom:150px; font-size:18px;">Oups, Aucun de vos abonnements n'organise un event en ce moment. Jetez un coup d'oeil <a href="/" > aux events à venir par la communauté </a>, plutôt!!! </p>
+   {% else %}
+   <p class="text-center" style="padding-top:150px; padding-bottom:150px; font-size:18px;">Oups, Il semble que vous n'avez  aucun event de prévu. Jetez un coup d'oeil <a href="/" > aux events à venir </a>, on ne sait jamais!!! </p>
+   {% endif %}
+  {% else %}
+  {{ event_container(events) }}
+  {% endif %}
+{% endblock %} 
